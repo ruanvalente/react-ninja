@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Ninja</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+    <script type="text/babel">
+      var h1 = React.createElement('h1', null, 'Hello h1 React')
+
+      var h2 = React.createElement(
+        'h2',
+        null,
+        React.createElement('p', null, 'Esse é o meu texto'),
+        'Esse é o texto do h2'
+      )
+
+      var h3 = React.createElement('h3', null, [
+        React.createElement('span', null, 'Texto 01 do span'),
+        React.createElement('span', null, 'Texto 02 do span')
+      ])
+
+      var Title = React.createClass({
+        render: function() {
+          return <h1>Meu primeiro componente</h1>
+        }
+      })
+
+      ReactDOM.render(<Title />, document.querySelector('#app'))
+
+      // var Title2 = React.createClass({
+      //   render: function() {
+      //     return
+      //     ;<h1>
+      //       <span>Span</span>
+      //     </h1>
+      //   }
+      // })
+      // ReactDOM.render(<Title2 />, document.querySelector('#app'))
+
+      var Title3 = React.createClass({
+        render: function() {
+          return (
+            <h1>
+              <span>Span</span>
+            </h1>
+          )
+        }
+      })
+
+      // ReactDOM.render(<Title3 />, document.querySelector('#app'))
+
+      var Title4 = React.createClass({
+        render: function() {
+          return (
+            <div>
+              <h1>Hello React</h1>
+              <h2>Hello JSX</h2>
+            </div>
+          )
+        }
+      })
+
+      ReactDOM.render(<Title4 />, document.querySelector('#app'))
+    </script>
+  </body>
+</html>
