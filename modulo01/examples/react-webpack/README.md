@@ -222,3 +222,39 @@ module.exports = {
   </body>
 </html>
 ```
+
+# Modularizando uma aplicação.
+
+Para começar a modularizar uma aplicação vamos criar um arquivo dentro de **src** chamado **app.js**.
+
+```
+touch src/app.js
+```
+
+Para podemos prosseguir precisamos entender um pouco como funciona o **require** e o **module.exports** do **CommonJS**.
+
+Para exemplo iremos exportar um método chamado **sum** que irá fazer a soma de dois valores.
+
+```js
+'use strict'
+
+function sum(value1, value2) {
+  return value1 + value2
+}
+
+module.exports = sum
+```
+
+Dentro de app criamos uma função chamada _sum_ onde a mesma recebe dois parâmetros e retorna a soma desses dois parâmetros.
+
+Agora dentro de **src/index.js** iremos importar essa função.
+
+```js
+'use strict'
+
+var sum = require('./app')
+
+console.log(sum(1, 3))
+```
+
+Com isso podemos subir a nossa aplicação e a nossa função **sum** terá sido executada dentro do nosso arquivo **index.js** retornando a soma dos parâmetros passados.
