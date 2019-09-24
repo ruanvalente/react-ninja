@@ -134,3 +134,91 @@ Agora precisamos criar o nosso arquivo **index.html** e adicionar o bundle.
 ```
 
 Com isso se executarmos o index.html veremos o nosso bundle funcionando.
+
+# Usando o server do webpack.
+
+Agora iremos aprender como configurar o server do webpack.
+
+Primeiro precisamos instalar a dependência responsável, que p **webpack-dev-server** dentro do nosso projeto.
+
+```
+npm install --save-dev webpack-dev-server@1
+```
+
+Agora com o nosso módulo instalado precisamos adicionar o **publicPath** no **webpack.config**
+
+```js
+'use strict'
+
+const path = require('path')
+
+module.exports = {
+  entry: path.join(__dirname, 'src', 'index'),
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/static/'
+  }
+}
+```
+
+O publicPath é para que o webpack-dev-server fique assistindo as alterações do nossos arquivos. Esses arquivos não serão gerados fisicamente mas sim em memória.
+
+Agora precisamos passar o caminho correto no index.html.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>React Webpack</title>
+  </head>
+  <body>
+    <script src="/static/bundle.js"></script>
+  </body>
+</html>
+```
+
+E agora vamos subir o server de desenvolvimento.
+
+```
+webpack-dev-server
+```
+
+Esse comando irá servir um servidor dentro de http://localhost:8080 com os arquivos de _static_ que estão sendo gerados em memória pelo webpack-dev-server.
+
+Porém dentro de um projeto que temos um arquivo para produção e outro para desenvolvimento, é comum termos essa separção e fazer o build final do projeto.
+
+Porém como estamos aprendendo, podemos colocar para ser servidos os arquivos da pasta _dist_, assim o webpack-dev-server terá sempre os arquivos atualizados.
+
+```js
+'use strict'
+
+const path = require('path')
+
+module.exports = {
+  entry: path.join(__dirname, 'src', 'index'),
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/dist/'
+  }
+}
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>React Webpack</title>
+  </head>
+  <body>
+    <script src="/dist/bundle.js"></script>
+  </body>
+</html>
+```
