@@ -3,7 +3,7 @@
 import React from 'react'
 
 const App = React.createClass({
-  render: function() {
+  render: function () {
     return <div>Aplicação</div>
   }
 })
