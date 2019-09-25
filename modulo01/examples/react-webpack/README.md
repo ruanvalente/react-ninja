@@ -302,3 +302,121 @@ Importamos o React e o ReactDOM para que possamos usar o método **render**, do
 **Title** e dizemos que queremos o nosso componente Title sendo renderizado dentro
 de uma **div** cujo selecionamos usando o **querySelector** com seu atributo
 **data-js="app"**
+
+# Usando o sistema de módulo do ES2015 - ES6.
+
+Vimos que estamos usando o sistema de módulos do CommonJS, porém se quisermos usar o sistemas de módulos do ES2015 ?
+
+Para isso precisamos de algumas dependências, iremos usar o babel.
+
+Como vimos lá atrás o babel serve para que possamos escrever um código mais atual usando Javascript e o babel irá fazer o papel de converter isso para um código mais antigo no qual os navegadores possam entender.
+
+Para isso iremos instalar o babel juntamente com alguns presets.
+
+Para mais informações sobre o [babel veja em](https://babeljs.io/)
+
+```
+npm install babel-core@6 babel-loader@6 babel-preset-es2015@6 babel-preset-stage-0@6 --save-dev
+```
+
+Com as dependências instaladas agora precisamos configurar o nosso arquivo **.babelrc** e adicionar as entradas para este arquivo.
+
+```json
+{
+  "presets": ["es2015", "stage-0"]
+}
+```
+
+Feito isso agora vamos atualizar o nosso **webpack.config.js** para que ele faça a utilização do babel para que toda vez que o nosso arquivo for alterado ele faça a atualização do nosso arquivo para ES5, para que assim o nosso navegador possa entender.
+
+```js
+'use strict'
+
+const path = require('path')
+
+module.exports = {
+  entry: path.join(__dirname, 'src', 'index'),
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/dist/'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        include: /src/,
+        loader: 'babel'
+      }
+    ]
+  }
+}
+```
+
+Agora adicionamos uma nova entrada dentro do nosso **webpack.config.js** chamada **module**.
+
+Dentro dela passamos algumas configurações. Dentro de **loaders**
+passamos um Array com 4 configurações: **test, exclude, include e loader**.
+
+#### Test.
+
+Essa configuração é para dizermos que todos os arquivos que terminam com **.js** sofreram essa regra que estamos passando.
+
+E todas as regras são passadas via Regex.
+
+#### Exclude.
+
+Estamos dizendo que estamos excluindo a verificação da pasta **node_modules** e que queremos que essa regra não se aplique a ela.
+
+#### Include.
+
+Estamos dizendo que queremos que os arquivo que seram incluídos na regra seram da pasta **src**. Onde estaram os nossos componentes.
+
+#### Loader.
+
+E por fim estamos dizendo qual é o loader que iremos utilizar que será o babel.
+
+Agora precisamos atualizar o nosso projeto para utilizar o padrão de import/export do ES2015.
+
+Vamos abrir o nosso arquivo **src/app.js** e fazer a atualização.
+
+```js
+'use strict'
+
+import React from 'react'
+
+var Title = React.createClass({
+  render: function() {
+    return React.createElement('h1', null, 'Título')
+  }
+})
+
+export default Title
+```
+
+Com a alteração feita precisamos alterar também o nosso **index.js**.
+
+```js
+'use strict'
+
+import Title from './app'
+import React from 'react'
+import { render } from 'react-dom'
+
+render(React.createElement(Title), document.querySelector('[data-js="app"]'))
+```
+
+Neste exemplo usamos o **import/export** do ES2015, onde basicamente estamos importando uma variável padrão com o nome passado após o import ou exportando também.
+
+Porém podemos fazer o **import/export** nomeado onde dentro de **react-dom** há um método **render** e queremos importa-lo e neste caso para fazer a sua importação precisamos usar o mesmo nome.
+
+Porém poderiamos dar outro nome usando **as** dentro do import.
+
+```js
+import { render as RENDER } from 'react-dom'
+```
+
+Isso significa que a função que importamos de dentro de **react-dom** chamada **render** foi nomeada agora para **RENDER** e **render** não faz mais parte do escopo do meu módulo.
+
+Para saber mais sobre [es-modules](https://blog.da2k.com.br/2019/02/25/ecmascript-modules-modulos-nativos-no-javascript/)
