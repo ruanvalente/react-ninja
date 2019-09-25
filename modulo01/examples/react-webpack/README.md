@@ -420,3 +420,97 @@ import { render as RENDER } from 'react-dom'
 Isso significa que a função que importamos de dentro de **react-dom** chamada **render** foi nomeada agora para **RENDER** e **render** não faz mais parte do escopo do meu módulo.
 
 Para saber mais sobre [es-modules](https://blog.da2k.com.br/2019/02/25/ecmascript-modules-modulos-nativos-no-javascript/)
+
+# Configurando JSX no babel e sourcemaps no Webpack.
+
+Agora precisamos fazer com que o babel entenda JSX nos nossos arquivos para que não venhamos estar mais usando o método **createClass()** do React.
+
+Para isso precisamos instalar o preset do React na nossa aplicação.
+
+```
+npm install babel-preset-react@6 --save-dev
+```
+
+Com o preset instalado corretamente agora vamos configurar o nosso **.babel.rc** adicionando esse preset.
+
+```json
+{
+  "presets": ["es2015", "stage-0", "react"]
+}
+```
+
+Com o preset instalado e adicionado dentro do nosso **.babelrc**, o babel irá saber lidar com a syntax JSX dentro dos nossos arquivos.
+
+Agora podemos atualizar os arquivos **src/app.js** e **index.js** para usarem JSX.
+
+> app.js
+
+```js
+'use strict'
+
+import React from 'react'
+
+var Title = React.createClass({
+  render: function() {
+    return <h1>Título</h1>
+  }
+})
+
+export default Title
+```
+
+> index.js
+
+```js
+'use strict'
+
+import Title from './app'
+import React from 'react'
+import { render } from 'react-dom'
+
+render(<Title />, document.querySelector('[data-js="app"]'))
+```
+
+Pronto, agora podemos escrever JSX e o babel irá fazer toda transpilação para que o nosso browser consiga entender.
+
+Tudo funciona porém se notarmos vamos ver que o nosso bundle é algo ruim para se ler ou até quem sabe encontrar um bug.
+
+Para isso iremos utilizar o sourcemaps !
+
+Quando você tem um código minificado, e adiciona a ele uma referência a um sourcemap, o sourcemap faz uma varredura no arquivo, e gera todas as referências a número de linha, nomes de variáveis e funções, etc., para que você possa debugar no arquivo “desminificado”.
+
+Vamos adicioar uma entrada de sourcemaps no **webpack.config.js**
+
+```js
+'use strict'
+
+const path = require('path')
+
+module.exports = {
+  devtool: 'source-map',
+  entry: path.join(__dirname, 'src', 'index'),
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/dist/'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        include: /src/,
+        loader: 'babel'
+      }
+    ]
+  }
+}
+```
+
+#### Devtool.
+
+A nova entrada devtool ela diz para o webpack para que quando for gerado os arquivos ele crie um sourcemap para aquele arquivo.
+
+O sourcemap é basicamente um 'mapa' do nosso arquivo principal.
+
+Podemos ver isso na aba source do nosso navegador. E com isso agora, toda vez que ocorrer um erro dentro da nossa aplicação será mostrado exatamente o nosso arquivo e não o bundle gerado.
