@@ -258,3 +258,47 @@ console.log(sum(1, 3))
 ```
 
 Com isso podemos subir a nossa aplicação e a nossa função **sum** terá sido executada dentro do nosso arquivo **index.js** retornando a soma dos parâmetros passados.
+
+# Criando uma aplicação em React.
+
+Agora para que possamos começar a criar a nossa aplicação com o React vamos instalar algumas dependências **React** e **ReactDOM**, ambas na versão 15.4
+
+```
+npm install --save react@15.4 react-dom@15.4
+```
+
+Feita instalção do React, agora vamos criar um componente em **src/app.js** ao invés da função **sum**, vamos criar e exportar esse componente.
+
+```js
+'use strict'
+
+var React = require('react')
+var Title = React.createClass({
+  render: function() {
+    return React.createElement('h1', null, 'Título')
+  }
+})
+
+module.exports = Title
+```
+
+Componente criado, agora vamos exportar esse nosso componente para o nosso **index.js**.
+
+```js
+'use strict'
+
+var Title = require('./app')
+var React = require('react')
+var ReactDOM = require('react-dom')
+
+ReactDOM.render(
+  React.createElement(Title),
+  document.querySelector('[data-js="app"]')
+)
+```
+
+Importamos o React e o ReactDOM para que possamos usar o método **render**, do
+**ReactDOM** e o **createElement**, do **React**. Com isso passamos o nosso componente
+**Title** e dizemos que queremos o nosso componente Title sendo renderizado dentro
+de uma **div** cujo selecionamos usando o **querySelector** com seu atributo
+**data-js="app"**
