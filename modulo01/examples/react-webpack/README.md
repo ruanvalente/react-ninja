@@ -673,3 +673,168 @@ Version: webpack 1.15.0
 ```
 
 E pronto o nosso server estará no ar :tada:
+
+# Colocando o hot loader para funcionar.
+
+Vimos que o nosso hot reloader não funcionou, porque não fizemos a configuração do nosso arquivo **src/index.js**.
+
+```js
+'use strict'
+
+import React from 'react'
+import { render } from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
+import App from './app'
+
+const renderApp = NextApp => {
+  render(
+    <AppContainer>
+      <NextApp />
+    </AppContainer>,
+    document.querySelector('[data-js="app"]')
+  )
+}
+
+renderApp(App)
+
+if (module.hot) {
+  module.hot.accept('./app', () => {
+    const NextApp = require('./app').default
+    renderApp(NextApp)
+  })
+}
+```
+
+Primeiro importamos de dentro de react-hot-loader um componente chamado **AppContainer**, que será responsável por envolver os demais componentes para o hot reloader.
+
+Com isso faremos uma verificação, que irá verificar se estamos com o modo hot reloade habilitado, se estiver iremos usar um método chamado **accept** onde passamos **app** para uma função, onde iremos dentro da função chamar uma variável **NextApp** que fará a importação novamente do arquivo app dentro da **nossa** aplicação.
+
+Por sua vez **NextApp** será o novo componente App com as alterações feitas.
+
+Aqui você pode encontar mais [informações sobre o react-hot-loader](https://gaearon.github.io/react-hot-loader/)
+
+Com isso, criamos uma função **renderApp** que irá ter como parâmetro o **NextApp**, o componente que será renderizado no momento.
+
+Agora qualquer alteração dentro do nosso arquivo **app.js**, irá causar o hot reloader :tada:
+
+Iremos ter essa estrutura durante o curso, todos os nossos componentes será importados dentro de **app.js** e dentro de **index.js** será feita a importação somente de **app.js**, pois já irá conter todos os componentes da nossa aplicação.
+
+# Configurar a ferramenta de lint.
+
+O linter server para que possamos ter uma base de guia de estilos de código dentro do nosso projeto.
+
+Neste projeto iremos utilizar o standard, que é basicamente zero configurações e bem simples de se usar e não usa ponto e vírgula :smile:
+
+Para utilização precisamos instalar:
+
+```
+npm install standard standard-loader@4 --save-dev
+```
+
+Agora precisamos editar o nosso arquivo **webpack.config.js** e adicionar o standard para que ele possa fazer a leitura correta do nosso código.
+
+```js
+'use strict'
+
+const path = require('path')
+const webpack = require('webpack')
+module.exports = {
+  devtool: 'source-map',
+
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+    path.join(__dirname, 'src', 'index')
+  ],
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/dist/'
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin()],
+  module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        include: /src/,
+        loader: 'standard'
+      }
+    ],
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        include: /src/,
+        loader: 'babel'
+      }
+    ]
+  }
+}
+```
+
+Adicionamos uma nova entrada chamada **preLoaders**, com basicamente as mesmas configurações do loader do babel, porém adicionamos na linha loader o **standard**.
+
+Também podemos instalar um módulo que irá cuidar de possíveis erros dentro das nossas configurações dentro do webpack.
+
+Se escrevermos uma entrada errada, o erro será disparado dentro do nosso index.js porém o erro está dentro do nosso arquivo de configuração do webpack.
+
+Para isso iremos instalar um módulo que irá cuidar disto.
+
+```
+npm install webpack-validator --save-dev
+```
+
+Agora configuramos o nosso arquivo **webpack.config.js**
+
+```js
+'use strict'
+
+const path = require('path')
+const webpack = require('webpack')
+const validate = require('webpack-validator')
+
+module.exports = validate({
+  devtool: 'source-map',
+
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+    path.join(__dirname, 'src', 'index')
+  ],
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/dist/'
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin()],
+  module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        include: /src/,
+        loader: 'standard'
+      }
+    ],
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        include: /src/,
+        loader: 'babel'
+      }
+    ]
+  }
+})
+```
+
+Primeiro importamos o módulo webpack-validator para a variável validate.
+
+A variável validate agora é uma função, que o nome já diz muito sobre ela, com isso exportamos a nossa função validate passando toda a configuração do nosso módulo.
+
+Agora se acontecer algum erro na parte de configuração do webpack, será mostrado dentro do console :tada:
+
+#### Módulo React + Webpack finalizado :tada:
