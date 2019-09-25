@@ -514,3 +514,162 @@ A nova entrada devtool ela diz para o webpack para que quando for gerado os arqu
 O sourcemap é basicamente um 'mapa' do nosso arquivo principal.
 
 Podemos ver isso na aba source do nosso navegador. E com isso agora, toda vez que ocorrer um erro dentro da nossa aplicação será mostrado exatamente o nosso arquivo e não o bundle gerado.
+
+# Configurando a nossa aplicação para usar o React Hot Loader.
+
+O React Hot Loader, serve para que quando for feita a alteração em algum dos nossos componentes que a alteração seja refletida na nossa árvore de elementos do DOM, porém somente no elemento necessário, neste caso o que ouve a alteração.
+
+Para isso precisamos instalar o módulo react-hot-loader ao nosso projeto.
+
+```js
+npm install react-hot-loader@3.0.0-beta.2 --save-dev
+```
+
+Com o nosso módulo instalado agora vamos configurar o nosso **webpack.config.js** para que quando ele venha fazer a leitura dos nossos arquivos ele possa fazer essa atualização utilizando o react-hot-loader.
+
+```js
+'use strict'
+
+const path = require('path')
+const webpack = require('webpack')
+module.exports = {
+  devtool: 'source-map',
+
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+    path.join(__dirname, 'src', 'index')
+  ],
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/dist/'
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin()],
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        include: /src/,
+        loader: 'babel'
+      }
+    ]
+  }
+}
+```
+
+Primeiro fazemos a importação do webpack, pois iremos utilizar um plugin para a nossa configuração.
+
+Dentro de Entry adicionamos as seguintes entradas:
+
+#### webpack-dev-server/client?http://localhost:3000.
+
+Está entrada é para que seja apenas executado no cliente e na porta 3000, já que a porta padrão é 8080.
+
+#### webpack/hot/only-dev-server.
+
+Estamos dizendo que o hot reloader somente quando o webpack-dev-server estiver executando.
+
+#### plugins.
+
+Nessa entrada estamos usando o plugin **HotModuleReplacementPlugin()** que fará com que o webpack use o hot reload.
+
+Agora precisamos atualizar o nosso **.babelrc** e adicionar o react-hot-loader.
+
+```json
+{
+  "presets": ["es2015", "stage-0", "react"],
+  "plugins": ["react-hot-loader/babel"]
+}
+```
+
+Adicionamos agora uma nova linha de configuração chamada **plugins**, e com isso passamos também dentro de um Array o react-hot-loader/babel que já conta com o que é necessário para funcionar o hot loader no babel.
+
+Agora precisamos criar uma arquivo **server.js** para rodar juntamente com o Nodejs, e criar também uma entrada chamada **start** dentro do nosso arquivo **package.json**.
+
+> server.js
+
+```js
+'use strict'
+
+const webpack = require('webpack')
+const WebpackDevServer = require('webpack-dev-server')
+const config = require('./webpack.config')
+
+new WebpackDevServer(webpack(config), {
+  publicPath: config.output.publicPath,
+  hot: true,
+  historyApiFallback: true,
+  stats: { colors: true }
+}).listen(3000, err => {
+  if (err) {
+    return console.log(err)
+  }
+  console.log('Listening on http://localhost:3000')
+})
+```
+
+Primeiro importamos os módulos necessários para o nosso server: webpack, WebpackDevServer(como construtor) e config.
+
+O config é o nosso arquivo de configuração do webpack.
+
+Usando o operador **new** criamos um novo **WebpackDevServer** e passamos o webpack como parâmetro para o nosso construtor e também a nossa configuração que nesse caso é o nosso arquivo config do webpack.
+
+Com isso passamos um objeto com as seguintes configurações:
+
+- publicPath
+
+  - É onde definimos o nosso output.
+
+- hot
+
+  - Definimos que queremos utilizar o hot reloader.
+
+- historyApiFallback
+
+  - Definimos como true para saber qualquer tipo de erro dentro da nossa aplicação.
+
+- stats
+  - Definimos como true apenas para manter a coloração da saída do log.
+
+Com isso dizemos onde queremos que o nosso servidor passe a ouvir, usando o método **listen**, passamos a porta e uma função com um parâmetro de erro, e verificammos se ouver erro é retornado um console.log com o erro, se não dizemos que a nossa aplicação está ouvindo na porta 3000.
+
+> package.json
+
+```json
+{
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "react-hot-loader": "^3.0.0-beta.2",
+    "webpack": "^1.15.0",
+    "webpack-dev-server": "^1.16.5"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
+}
+```
+
+Agora adicionamos apenas uma entrada "scripts" dentro do nosso **package.json** chamando o nosso **serve.js** utilizando o node.
+
+Agora dentro do terminal precisamos apenas executar o comando:
+
+```
+npm start
+
+Listening on http://localhost:3000
+Hash: b84a1d06a73582410c12
+Version: webpack 1.15.0
+```
+
+E pronto o nosso server estará no ar :tada:
