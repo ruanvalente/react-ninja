@@ -58,3 +58,61 @@ export default Title
 Perceba que para que possamos referenciar a nossa prop dentro do nosso componente, precisamos usar **{}** o par de chaves, para que assim possamos escrever códigos Javascript dentro do JSX.
 
 E assim temos o nosso componente renderizado **Olá, Ruan Valente**, ou qualquer outro nome passado via props. :tada:
+
+# Atributos do HTML.
+
+Quando precisamos passar para um componente um atributo HTML, podemos passar da forma comum.
+
+Porém alguns atributos temos que passar de forma especifica.
+
+Por exemplo, o atributo **class**, já que estamos trabalhando com Javascript, não podemos utilizar uma palavra reservada da linguagem, porém para esses casos utilizamos o atributo **className**, que no final o React irá renderizar como um atributo **class** normal de css.
+
+Ex:
+
+```js
+'use strict'
+
+import React from 'react'
+import Title from './title'
+
+const App = React.createClass({
+  render: function() {
+    return (
+      <div className="container">
+        <Title name="Ruan Valente" />
+      </div>
+    )
+  },
+})
+
+export default Title
+```
+
+Outro atributo é o **for**. Dentro da tag **label** usamos o **for** porém sabemos que o for é uma palavra reservada dentro da linguagem Javascript.
+
+Para que possamos usar o for do HTML normalmente podemos usar o **htmlFor**, e assim o React irá renderizar da forma correta, como atributo normal do HTML.
+
+O mesmo serve para os atributos aria. Sempre usando o camelCase.
+
+Ex:
+
+```js
+'use strict'
+
+import React from 'react'
+import Title from './title'
+
+const Title = React.createClass({
+  render: function() {
+    return (
+      <div className="container">
+        <Title name="Ruan Valente" />
+        <label htmlFor="input">Input</label>
+        <input type="text" id="input" aria-hidden={true} />
+      </div>
+    )
+  },
+})
+
+export default Title
+```
