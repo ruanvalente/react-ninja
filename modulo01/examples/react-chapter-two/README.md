@@ -295,6 +295,27 @@ Utilizamos o shorthand notation para as propriedades passadas para os nossos com
 
 Utilizamos também as `backtick` as crazes para que dentro da String podemos interpolar as nossas props criadas usando a syntax `${prop} ${prop2}`.
 
+E por fim podemos utilizar o `getDefaultProps` com um método static de Title.
+
+Ex:
+
+```js
+'use strict'
+
+import React from 'react'
+
+const Title = ({ name, lastName }) => {
+  return <h1>Olá {`${name} ${lastName}`}</h1>
+}
+
+Title.defaultProps = {
+  name: 'Desconhecido',
+  lastName: 'Sem sobrenome',
+}
+
+export default Title
+```
+
 O código fica ainda mais simples :smile:
 
 [Para saber mais sobre as Arrow Functions](https://blog.da2k.com.br/2019/01/07/javascript-tudo-sobre-arrow-functions/)
