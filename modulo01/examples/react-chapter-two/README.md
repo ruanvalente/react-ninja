@@ -116,3 +116,35 @@ const Title = React.createClass({
 
 export default Title
 ```
+
+# getDefaultProps.
+
+Vamos imaginar a seguinte situação, fizemos com que a nossa props chamada **name** fosse renderizada normalmente, porém e si neste não fosse passado o valor nenhum para a nossa props ?
+
+Neste caso não seria renderizado nada, porém poderiamos ter um valor padrão para renderizar o valor da nossa props, fazemos isso usando o método **getDefaultProps**.
+
+Ex:
+
+```js
+'use strict'
+
+import React from 'react'
+
+const Title = React.createClass({
+  getDefaultProps: function() {
+    return {
+      name: 'Desconhecido',
+    }
+  },
+
+  render: function() {
+    return <h1>Olá, {this.props.name}</h1>
+  },
+})
+
+export default Title
+```
+
+O método **getDefaultProps**, que dentro da função o mesmo retorna um **objeto** com as propriedades **default** que forem necessárias.
+
+Então neste exemplo se não tivermos nenhuma prop passada, a prop default será renderizada no lugar, mostrando o valor neste caso de 'Desconhecido'.
