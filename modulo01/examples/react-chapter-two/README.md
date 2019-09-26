@@ -148,3 +148,44 @@ export default Title
 O método **getDefaultProps**, que dentro da função o mesmo retorna um **objeto** com as propriedades **default** que forem necessárias.
 
 Então neste exemplo se não tivermos nenhuma prop passada, a prop default será renderizada no lugar, mostrando o valor neste caso de 'Desconhecido'.
+
+# Passando outros tipos de dados via props.
+
+Agora vamos ver como passamos outros tipos de dados via props
+
+Para que possamos passar qualquer tipo de dado via props podemos passar de duas maneiras.
+
+A primeira é usando String, como já vimos nas aulas passadas e a outra forma é via expressão !
+
+Uma expressão dentro Javascript dentro do JSX podemos passar da seguinte maneira:
+
+```
+prop={expression}
+```
+
+Dessa forma temos a nossa expressão dentro do JSX sendo passada via props para o nosso componente.
+
+Ex:
+
+```js
+'use strict'
+
+import React from 'react'
+
+const Title = React.createClass({
+  getDefaultProps: function() {
+    return {
+      name: 'Desconhecido',
+      skils: ['Javascript'],
+    }
+  },
+
+  render: function() {
+    return <h1>{this.props.name + ' ' + this.props.skils}</h1>
+  },
+})
+
+export default Title
+```
+
+Com isso temos uma defaultProps chamada skil que é um Array, sendo passado para o nosso componente Title.
