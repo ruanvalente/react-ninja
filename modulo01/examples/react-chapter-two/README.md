@@ -189,3 +189,112 @@ export default Title
 ```
 
 Com isso temos uma defaultProps chamada skil que é um Array, sendo passado para o nosso componente Title.
+
+# Renderizando componentes com funções puras.
+
+Agora vamos ver algumas outras formas de renderização de componentes, existem 3 formas para isso:
+
+- React.createClass();
+- Funções Puras;
+- Classes (ES2015).
+
+O React.createClass, foi o que vimos até aqui, é era usado para criar componentes usando ES5, porém agora vamos ver como podemos trabalhar com ES6.
+
+# O que são funções puras ?
+
+Uma função para ser pura basicamente ela sempre precisa retornar o mesmo valor, sempre que passarmos os mesmos parâmetros.
+
+Ex:
+
+> função pura
+
+```js
+function pureFunction(a, b) {
+  return a + b
+}
+
+pureFunction(1, 2)
+```
+
+Está função é pura, pois mesmo que fossemos chamar essa função inúmeras vezes com os mesmos parâmetros ela sempre irá continuar devolvendo o mesmo valor, que neste caso é 3.
+
+Agora vamos ver um exemplo de função impura.
+
+Ex:
+
+> função impura.
+
+```js
+var obj = { a: 1, b: 2 }
+
+function impureFunction(a, b) {
+  obj.a = a + b
+  return a + b
+}
+
+impureFunction(1, 2)
+```
+
+Você pode perceber que sempre que eu chamar essa função era irá modificar o valor do objeto que criamos a cima dela, apesar de está sempre retornando o mesmo valor.
+
+A ideia é que no React é trabalhado diversos conceitos de programação funcional.
+
+[Aqui tem um artigo muito bom sobre o assunto](https://medium.com/tableless/entendendo-programa%C3%A7%C3%A3o-funcional-em-javascript-de-uma-vez-c676489be08b)
+
+Voltando, então dentro do React o método render deve ser puro, onde o mesmo não deve fazer nenhum tipo de modificação externa.
+
+Para que o nosso componente possa ser um componente de função usamos a seguinte syntax.
+
+Ex:
+
+```js
+import React from 'react'
+
+const Title = () => {
+  return <h1>Olá</h1>
+}
+```
+
+Com isso temos a nossa função pura, porém estamos usando as Arrows Functions.
+
+> Uma expressão arrow function possui uma sintaxe mais curta quando comparada a uma expressão de função (function expression) e não tem seu próprio this, arguments, super ou new.target. Estas expressões de funções são melhor aplicadas para funções que não sejam métodos, e elas não podem ser usadas como construtoras (constructors). _MDN_
+
+Com isso ainda podemos deixar ainda mais curta a nossa função, pois já que não estamos retornando nada além do Olá, poderiamos omitir as chaves e remover o return e ter uma syntax mais simples.
+
+```js
+import React from 'react'
+
+const Title = () => <h1>Olá</h1>
+```
+
+Dessa forma a Arrow Function irá entender que `<h1>Olá</h1>` é o retorno da função.
+
+Agora como podemos utilizar as props dentro das Arrow Functions ?
+
+Simples, as Arrow Functions recebem por parâmetro um objeto chamado props e podemos acessá-lo dentro do nosso componente, porém sem o uso do **this** já que como foi dito as Arrow Functions não possuim **this** !
+
+Ex:
+
+```js
+import React from 'react'
+
+const Title = props => <h1>Olá, {props.name}</h1>
+```
+
+Dessa forma acessamos a nossa prop name e ainda podemos usar a shorthand notation e as backtick.
+
+```js
+import React from 'react'
+
+const Title = ({name, lastName}) => (
+  <h1>Olá {`${name} ${lastName}`</h1>
+)
+```
+
+Utilizamos o shorthand notation para as propriedades passadas para os nossos componentes, assim não precisamos ficar acessando via `props.nomeDaPropriedade`.
+
+Utilizamos também as `backtick` as crazes para que dentro da String podemos interpolar as nossas props criadas usando a syntax `${prop} ${prop2}`.
+
+O código fica ainda mais simples :smile:
+
+[Para saber mais sobre as Arrow Functions](https://blog.da2k.com.br/2019/01/07/javascript-tudo-sobre-arrow-functions/)
