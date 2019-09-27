@@ -319,3 +319,63 @@ export default Title
 O código fica ainda mais simples :smile:
 
 [Para saber mais sobre as Arrow Functions](https://blog.da2k.com.br/2019/01/07/javascript-tudo-sobre-arrow-functions/)
+
+# Renderizando componentes com classes do ES62015.
+
+Já vimos em aulas passadas como renderizar componentes dentro do React usando:
+
+- React.createClass();
+- Funções Puras
+
+E agora vamos ver como o React renderiza componentes usando classes(ES62015).
+
+Para este exemplo, iremos utilizar essa syntax de classe no nosso componente `app.js`, onde mais na frente fará mais sentindo o porque da utilização da syntax de class.
+
+```js
+import React, { Component } from 'react'
+import Title from './title'
+
+class App extends Component {
+  render() {
+    return (
+      <div className="container">
+        <Title name="Ruan" lastName="Valente" />
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Basicamente é dessa forma que temos a escrita de um componente usando a syntax de classe do ES6.
+
+Extendemos o nosso `App` de `Component` para que assim possamos criar o nosso componente neste formato de classe. Porém, o que acontece é basicamente a mesma coisa quando usamos o `React.createClass`.
+
+Agora como fica a escrita do método `defaultProps` ?
+
+Da mesma forma como fizemos em funções podemos definir o defaultProps como um método static da nossa class.
+
+```js
+import React, { Component } from 'react'
+import Title from './title'
+
+class App extends Component {
+  render() {
+    return (
+      <div clasName="container">
+        <h2>{this.props.courseName}</h2>
+        <Title />
+      </div>
+    )
+  }
+}
+
+App.defaultProps = {
+  courseName: 'React Ninja',
+}
+
+export default App
+```
+
+O acesso as nossas props utilizando classe é através do `this`.
