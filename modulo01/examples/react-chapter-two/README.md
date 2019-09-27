@@ -563,3 +563,44 @@ export default App
 ```
 
 Pronto dessa forma será renderizado perfeitamente e com cada componente de forma única através do seu `index`.
+
+# Eventos.
+
+Agora nessa aula vamos falar um pouco sobre eventos e como eles funcionam dentro do React.
+
+Segundo a documentação da MDN eventos são utilizados para notificar o código de novidades durante a navegação do usuário. Cada evento é representado por um objeto que é baseado na interface `Event`, e pode ter campos customizados adicionados e/ou funções usadas para obter informações adicionais sobre o que aconteceu. Eventos podem representar desde interações básicas do usuário (cliques, rolagem da página...)
+
+Agora como o React lida com eventos ?
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+import Square from './square'
+
+class App extends Component {
+  render() {
+    return (
+      <div className="container" onClick={e => console.log('click')}>
+        {['#ffff00', '#1a8cff', '#40bf40', '#ffff00'].map(
+          (squareColor, index) => (
+            <Square key={index} color={squareColor} />
+          )
+        )}
+      </div>
+    )
+  }
+}
+
+App.defaultProps = {
+  courseName: 'React Ninja',
+}
+
+export default App
+```
+
+Como podemos ver passamos a nosso evento click usando `onClick` todo evento no React é seguido antes da palavra `onNomeDoEvento` com estilo camelCase.
+
+[Para saber mais sobre eventos](https://pt-br.reactjs.org/docs/handling-events.html)
