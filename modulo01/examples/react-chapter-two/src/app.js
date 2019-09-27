@@ -7,9 +7,11 @@ class App extends Component {
   render () {
     return (
       <div className='container'>
-        {['#ffff00', '#1a8cff', '#40bf40'].map(squareColor => (
-          <Square key={squareColor} color={squareColor} />
-        ))}
+        {['#ffff00', '#1a8cff', '#40bf40', '#ffff00'].map(
+          (squareColor, index) => (
+            <Square key={index} color={squareColor} />
+          )
+        )}
       </div>
     )
   }

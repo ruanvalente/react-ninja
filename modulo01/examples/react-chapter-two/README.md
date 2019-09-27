@@ -489,3 +489,77 @@ App.defaultProps = {
 
 export default App
 ```
+
+# Problema ao duplicar a key.
+
+Na aula anterior aprendemos como funciona a prop key, e com isso geramos um componente chamado `Square` onde passamos um `Array` com cores e com isso renderizamos 3 `Squares` com as cores red, blue e green.
+
+Agora vamos ver o problema ao fazer duplicação dessa mesma key.
+
+Quando fazemos a duplicamos a mesma key o React nos da um warning dizendo que a key foi duplicada e que a mesma deveria ser única !
+
+E com isso o React junta os elementos que deveriam ser renderizados em um só, pois ele entende que o mesmo foi duplicado e não há necessidade de ser renderizado novamente.
+
+Por isso é necessário que tenhamos uma key única quando formos iterar sobre algum elemento.
+
+Ex:
+
+```js
+import React, { Component } from 'react'
+import Square from './square'
+
+class App extends Component {
+  render() {
+    return (
+      <div className="container">
+        {['red', 'blue', 'red'].map(squareColor => (
+          <Square key={squareColor} color={squareColor} />
+        ))}
+      </div>
+    )
+  }
+}
+
+App.defaultProps = {
+  color: '#333',
+}
+
+export default App
+```
+
+Neste exemplo temos uma chave duplicada, no caso `red`, com isso o React não irá renderizar pela segunda vez a chave `red`.
+
+Pois ele entende que é o mesmo componente que está sendo renderizado novamente e por isso não renderiza.
+
+Agora como fariamos para renderizar esse componente nesse caso ? Simples, o método `map` recebe 3 parâmetros que são:
+
+> map(element, index, array)
+
+E neste exemplo para que possamos renderizar novamente o a chave `red` podemos passar mais um parâmetro para o nosso `map` o `index` do nosso array.
+
+E com isso usa o index com nossa `chave`.
+
+```js
+import React, { Component } from 'react'
+import Square from './square'
+
+class App extends Component {
+  render() {
+    return (
+      <div className="container">
+        {['red', 'blue', 'red'].map((squareColor, index) => (
+          <Square key={index} color={squareColor} />
+        ))}
+      </div>
+    )
+  }
+}
+
+App.defaultProps = {
+  color: '#333',
+}
+
+export default App
+```
+
+Pronto dessa forma será renderizado perfeitamente e com cada componente de forma única através do seu `index`.
