@@ -379,3 +379,113 @@ export default App
 ```
 
 O acesso as nossas props utilizando classe é através do `this`.
+
+# Conhecnedo a prop key.
+
+A prop key dentro React é um atributo de string especial que você precisa incluir quando estiver criando arrays de elementos. As keys ajudam o React a identificar quais items foram alterados, quais foram adicionados, ou quais foram removidos. As keys devem ser dadas a elementos em um array para dar a estes elementos uma identidade estável.
+
+As keys precisam ser únicas entre os elementos de um mesmo array. Eles não precisam ser exclusivos em toda a aplicação ou até mesmo em um único componente.
+
+Vamos supor que queremos criar um componente chamado `Square`, esse componente apenas renderiza um quadrado em tela conforme determinada cor passada para o componente via props.
+Ex:
+
+```js
+import React from 'react'
+
+const Square = ({ color }) => (
+  <div
+    styles={{
+      height: '100px',
+      width: '100px',
+      backgroundColor: color,
+    }}
+  ></div>
+)
+
+Square.defaultProps = {
+  color: '#333',
+}
+
+export default Square
+```
+
+Agora dentro do nosso `App.js` importamos o nosso novo componente.
+
+```js
+import React, { Component } from 'react'
+import Square from './square'
+
+class App extends Component {
+  render() {
+    return (
+      <div className="container">
+        <Square />
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Pronto, agora será renderizado em nossa tela o nosso componente `Square` com base na cor padrão definida no método static do nosso componente.
+
+Porém e se quisermos renderizar diversas cores dentro do nosso componente ? Sabemos que podemos usar uma `{expression}` expressão dentro do nosso `JSX` com isso podemos passar um `Array` com as cores que queremos que sejam renderizadas em nosso componente.
+
+Ex:
+
+```js
+import React, { Component } from 'react'
+import Square from './square'
+
+class App extends Component {
+  render() {
+    return (
+      <div className="container">
+        {['red', 'blue', 'green'].map(squareColor => (
+          <Square color={squareColor} />
+        ))}
+      </div>
+    )
+  }
+}
+
+App.defaultProps = {
+  color: '#333',
+}
+
+export default App
+```
+
+Usando o `map` para pecorrer o nosso Array, com isso podemos usar dentro do nosso componente `Square` o valor pecorrido dentro do nosso Array usando o `squareColor`.
+
+Porém percebemos um `Warning` em nossa aplicação.
+
+> Each child in an array or iterator should have a unique "key" prop. Check the render method of `App`. See https://fb.me/react-warning-keys for more information.
+
+Como foi dito a cima precisamos sempre passar para o nosso componente quando ouver Array's a prop key, que irá dizer para o React a identificar quais items foram alterados, quais foram adicionados, ou quais foram removidos.
+
+Ex:
+
+```js
+import React, { Component } from 'react'
+import Square from './square'
+
+class App extends Component {
+  render() {
+    return (
+      <div className="container">
+        {['red', 'blue', 'green'].map(squareColor => (
+          <Square key={squareColor} color={squareColor} />
+        ))}
+      </div>
+    )
+  }
+}
+
+App.defaultProps = {
+  color: '#333',
+}
+
+export default App
+```
