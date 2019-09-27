@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 
-const Square = ({ color, handleClick }) => (
+const Square = ({ color }) => (
   <div
     style={{
       backgroundColor: color,

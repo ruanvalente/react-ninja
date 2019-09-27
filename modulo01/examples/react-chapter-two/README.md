@@ -604,3 +604,48 @@ export default App
 Como podemos ver passamos a nosso evento click usando `onClick` todo evento no React é seguido antes da palavra `onNomeDoEvento` com estilo camelCase.
 
 [Para saber mais sobre eventos](https://pt-br.reactjs.org/docs/handling-events.html)
+
+# A prop children.
+
+`props.children` está disponível em todos os componentes. Ele contém o conteúdo entre as tags de abertura e fechamento de um componente.
+
+Podemos imaginar o seguinte cenário, precisamos ter um componente genérico por exemplo um componente de botão.
+
+Em uma aplicação temos diversos botões e com isso podemos ter diversos textos, tamanhos, cores e etc. Para isso precisamos de um componente genérico onde iremos usar a composição um assunto que iremos abortar um pouco mais a frente.
+
+Ex:
+
+```js
+'use strict'
+
+import React from 'react'
+
+const Button = ({ children }) => <button>{children}</button>
+
+export default Button
+```
+
+Componente criado agora vamos renderizar esse componente dentro do nosso `App`.
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+import Button from './button'
+
+class App extends Component {
+  render() {
+    return (
+      <div className="container">
+        <Button>Meu botão</Button>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Dessa forma ao invés de passarmos uma props para o nosso componente apenas abrimos e fechamos o nosso componente como uma tag HTML e colocamos o nosso texto dentro do nosso componente que através da prop `children` irá pegar este texto e renderizar em tela.
+
+Com isso em mente vamos aprender um pouco sobre como funciona a componsição de componentes.
