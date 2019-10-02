@@ -724,3 +724,52 @@ export default App
 ```
 
 Com esse conceito podemos criar diversos componentes para a nossa aplicação, seguindo o conceito de composição.
+
+Podemos ir além fazendo com que cada componente de botão possar ter o seu determinado evento.
+
+Ex:
+
+> button.js
+
+```js
+'use strict'
+import React from 'react'
+
+const Button = ({ children, handleClick }) => (
+  <button onClick={handleClick}>{children}</button>
+)
+
+export default Button
+```
+
+> like-button.js
+
+```js
+'use strict'
+
+import React from 'react'
+import Button from './button'
+
+const LikeButton = () => (
+  <Button handleClick={() => console.log('Like Button')}>Like</Button>
+)
+
+export default LikeButton
+```
+
+> search-button.js
+
+```js
+'use strict'
+
+import React from 'react'
+import Button from './button'
+
+const SearchButton = () => (
+  <Button handleClick={() => console.log('Search Button')}>Search</Button>
+)
+
+export default SearchButton
+```
+
+Agora temos um novo componente chamado `SearchButton`, onde fazemos também o uso da composição, também neste exemplo passamos via props para o nosso componente `Button`, o evento `onClick`. E assim, de acordo com cada click em seu respectivo botão ocorrerá uma determinada função de callback.
