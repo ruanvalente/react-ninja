@@ -649,3 +649,78 @@ export default App
 Dessa forma ao invés de passarmos uma props para o nosso componente apenas abrimos e fechamos o nosso componente como uma tag HTML e colocamos o nosso texto dentro do nosso componente que através da prop `children` irá pegar este texto e renderizar em tela.
 
 Com isso em mente vamos aprender um pouco sobre como funciona a componsição de componentes.
+
+# Composição.
+
+É quando podemos reunir várias funções em uma – onde a mesma recebe um número variado de funções por parâmetro, e dentro dela é usado o resultado de uma como entrada para outra.
+
+Um exemplo simples seria uma função que faz a soma de dois parâmetros.
+
+```js
+const sum = (a, b) => a + b
+
+sum(1, 2)
+// 3
+```
+
+Simples não é ? Agora vejamos, vamos supor que precisamos `compor` está função, mediante aos dois parâmetros passados queremos fazer algo com o terceiro valor.
+
+```js
+sum(sum(1, 2), 3)
+
+// 6
+```
+
+Temos como o resultado da nossa composição o valor `6`, mas o que aconteceu neste código ?
+
+Primeiramente, sabendo o tipo de retorno da função `sum` no qual é um número, podemos passar novamente a nossa função `sum` como primeiro parâmetro.
+
+Como seu retorno da função é somando com o segundo parâmetro da nossa função e com isso temos o valor de `6`.
+
+Então resumidamente a ideia de composição é ter o resultado dos valores passados para retornar um terceiro valor.
+
+Agora como isso se aplica dentro do React e com os nossos componentes ?
+
+Poderiamos usar o exemplo do nosso componente de botão para que possamos criar um composição simples, usando JSX no nosso componente.
+
+Ex:
+
+```js
+'use strict'
+
+import React from 'react'
+import Button from './button'
+
+const LikeButton = () => <Button>Like</Button>
+
+export default LikeButton
+```
+
+Com esse novo componente fazemos o processo básico sobre composição de componentes, onde usamos o nosso componente `Button` para retornar um novo componente `Button` que neste caso `LikeButton`.
+
+Agora dentro do nosso `App` chamamos o nosso novo componente.
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+import LikeButton from './like-button'
+
+class App extends Component {
+  render() {
+    return (
+      <div className="container">
+        <LikeButton />
+      </div>
+    )
+  }
+}
+
+App.defaultProps = {
+  courseName: 'React Ninja',
+}
+
+export default App
+```
+
+Com esse conceito podemos criar diversos componentes para a nossa aplicação, seguindo o conceito de composição.
