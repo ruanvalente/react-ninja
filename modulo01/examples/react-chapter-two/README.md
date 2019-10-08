@@ -773,3 +773,113 @@ export default SearchButton
 ```
 
 Agora temos um novo componente chamado `SearchButton`, onde fazemos também o uso da composição, também neste exemplo passamos via props para o nosso componente `Button`, o evento `onClick`. E assim, de acordo com cada click em seu respectivo botão ocorrerá uma determinada função de callback.
+
+# State
+
+State dentro do React é um objeto de estado onde você armazena os valores de propriedades que pertence ao componente.
+
+Quando o objeto de estado deste componente é alterado, o componente é renderizado novamente.
+
+Nas versões antigas do React, para fazer manipulação do estado da nossa aplicação era necessário o uso de `class's` pois componentes do tipo função não tinham como manipular estado.
+
+Agora nas versões mais novas do React temos a nova API `hooks`, que são a nova forma de manipular estados dentro da nossa aplicação usando `funções`.
+
+Porém, no início do curso, ainda usamos syntax de `class` para manipulação de estado.
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      text: 'Texto',
+    }
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <h2>{this.state.text}</h2>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Dentro do nosso componente `App` temos um `estado` chamado `text`, no qual o seu valor iniciado é `Texto` e temos o acesso a esse estado usando `this.state.text`.
+
+Até ai, nada de mais, fizemos algo que poderiamos ter feito normalmente, porém como poderiamos alterar o valor desse estado ?
+
+Dentro do React segue um conceito de programação funcional que é chamado de `imutabilidade`, então não podemos alterar esse estado dessa forma:
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      text: 'Texto',
+    }
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <h2>{(this.state.text = 'novo Valor')}</h2>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Isso dentro do React não irá surtir efeito ! Por isso precisamos usar uma função que irá ser responsável por `setar um novo estado em nosso aplicação`, para isso iremos usar a função `setState`.
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      text: 'Texto',
+    }
+  }
+
+  render() {
+    return (
+      <div
+        className="container"
+        onClick={() =>
+          this.setState({
+            text: 'Novo Texto',
+          })
+        }
+      >
+        <h2>{this.state.text}</h2>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Neste exemplo alteramos o estado da nossa aplicação usando a função `onClick`, apartir do click no elemento será setado um `novo estado` em nossa aplicação, com o estado de `text` alterado para `Novo Texto` !
