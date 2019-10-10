@@ -883,3 +883,124 @@ export default App
 ```
 
 Neste exemplo alteramos o estado da nossa aplicação usando a função `onClick`, apartir do click no elemento será setado um `novo estado` em nossa aplicação, com o estado de `text` alterado para `Novo Texto` !
+
+# Entendendo as Arrow functions.
+
+As arrow functions, possuem uma sintaxe mais curta quando comparada a uma expressão de função _(function expression)_ e não tem seu próprio _this, arguments, super_ ou _new.target_. Estas expressões de funções são melhor aplicadas para funções que **não sejam métodos**, e elas **não podem ser usadas como construtoras** (constructors).
+
+> Fonte: MDN.
+
+Mas, para que possamos entender melhor o uso das arrows functions precisamos entender como funciona a declaração de uma função dentro do Javascript.
+
+Ex:
+
+```js
+'use strict'
+
+function sum(x, y) {
+  return x + y
+}
+
+var sumTwo = function(x, y) {
+  return x + y
+}
+
+console.log(sum(1, 2)) // 3
+console.log(sumTwo(1, 2)) // 3
+```
+
+Neste exemplo temos as duas formar que declaramos uma assinatura de uma função.
+
+A primeira forma consiste que a função tenha um nome que neste caso é `sum`, e não poderiamos escrever ela deforma anônima, o nome da função é obrigatório.
+
+Porém, no segundo exemplo declaramos uma variável chamada `sumTwo` onde atribuímos uma função anônima. E com isso podemos invocar a função que passamos para essa variável apartir do seu nome como no exemplo.
+
+Agora como ficaria estes exemplos usando arrow functions ?
+
+Ex:
+
+```js
+'use strict'
+
+var sumArrow = (x, y) => {
+  return x + y
+}
+
+console.log(sumArrow(1, 2)) // 3
+```
+
+Desta forma temos o mesmo comportamente mas com algumas diferenças, a primeira é que quando usamos uma função arrow sempre usamos funções anônimas e não temos a palavra `function`.
+
+A segunda, é que poderiamos deixar a nossa função ainda mais compacta, quando utilizamos as arrow functions se tivermos apenas um retorno como no exemplo, podemos omitir os chaves e o return.
+
+Ex:
+
+```js
+var sumArrow = (x, y) => x + y
+
+console.log(sumArrow(1, 2)) // 3
+```
+
+Dessa forma a arrow function entende que tudo que for passo após `=>` será um tipo de retorno válido.
+
+E também se tivermos apenas um parâmetro podemos omitir os parênteses.
+
+```js
+var addOne = x => sumArrow(x, 1)
+
+console.log(addOne(5)) // 6
+```
+
+Mas a grande vantagem de se usar as arrow functions são quando precisamos usar o escopo léxico.
+
+No exemplo onde usamos as arrow functions para o evento de click dentro do nosso componente, se utilizarmos o modelo de function normal poderiamos ter um erro, por conta do `this`.
+
+Pois quando utilizamos functions ao invés de arrow function o valor de `this` pode variar !
+
+E teriamos o seguinte erro:
+
+> Uncaught TypeError: Cannot read property 'setState' of null
+
+Como o proprio erro diz, não conseguimos ler a propriedade setState de null, pois o this está sendo apontado para outro lugar.
+
+Para resolver este problema ainda usando assinatura de function poderiamos criar uma variável que contenha o valor de this.
+
+```js
+var self = this
+```
+
+Ou ainda poderiamos fazer a injeção do this na nossa função usando a função `bind`
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      text: 'Texto',
+    }
+  }
+
+  render() {
+    return (
+      <div
+        className="container"
+        onClick={function() {
+          this.setState({
+            text: 'Novo Texto',
+          })
+        }.bind(this)}
+      >
+        <h2>{this.state.text}</h2>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+[Para saber mais sobre Arrow Functions](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
