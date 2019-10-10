@@ -1309,3 +1309,102 @@ export default Timer
 ```
 
 Neste exemplo usamos o método `componentWillUnmount` para que possamos remover a execução do setInterval feita dentro do nosso componente `Timer`.
+
+# Lifecycle fluxo de atualização (componentWillReceiveProps(nextProps))
+
+Executado automaticamente toda vez que alguma propriedade do componente for atualizada.
+
+Ex:
+
+> App.js
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+import Timer from './timer'
+
+class App extends Component {
+  constructor() {
+    console.log('constructor')
+    super()
+    this.state = {
+      time: 0,
+      showTimer: true,
+    }
+  }
+
+  componentWillMount() {
+    console.log('componentWillMount')
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+  }
+
+  render() {
+    console.log('render')
+    return (
+      <div>
+        {<Timer time={this.state.time} />}
+        <button
+          onClick={() => {
+            this.setState({
+              time: this.state.time + 10,
+            })
+          }}
+        >
+          Change props
+        </button>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+> Timer.js
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class Timer extends Component {
+  constructor() {
+    super()
+    this.state = {
+      time: 0,
+    }
+    this.time
+  }
+
+  componentDidMount() {
+    this.time = setInterval(() => {
+      this.setState({
+        time: this.state.time + 1,
+      })
+    }, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.time)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps', this.state.time, nextProps)
+  }
+
+  render() {
+    return <div>Timer: {this.state.time}</div>
+  }
+}
+
+export default Timer
+```
+
+Neste exemplo definimos o nosso estado no caso `time` com o valor `0` por padrão, e quando alteramos esse estado através do click do botão usando o método `componentWillReceiveProps`, podemos ver a propriedade `time` que foi passada para o nosso componente que ela foi alterada.
+
+E com isso podemos comparar o estado atual da nossa aplicação com `nextProps` que fará a atualização dessa nova propriedade.
+
