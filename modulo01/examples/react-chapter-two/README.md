@@ -1004,3 +1004,74 @@ export default App
 ```
 
 [Para saber mais sobre Arrow Functions](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+
+# Stateful vs Stateless.
+
+Agora iremos entender o que é um componente Stateful e um componente Stateless, quando utilizar e porque utilizar.
+
+### Stateful.
+
+Usamos um componente Stateful quando precisamos manipular o estado da nossa aplicação, geralmente este tipo de componente tem o controle total do estado da nossa aplicação.
+
+E dentro da nossa aplicação temos o nosso componente `App` que é um componente Stateful.
+
+### Stateless.
+
+Usamos um componente Stateless quando não temos a necessidade de fazer a manipulação de estado.
+
+E dentro da nossa aplicação temos com exemplo o nosso componente `Button`.
+
+> Dentro das versões mais antigas do React não era possível fazer manipulação de estado utilizando funções puras, apenas usando class's. Apenas com a chega dos `Hooks` apartir da versão `16.7.0` se tornou possível fazer manipulação de estado usando funções puras.
+
+Para que possamos entender melhor este funcionamente vamos usar um exemplo. O exemplo em si é simples, iremos importar os nosso componentes `Button` e `Square`. Com isso vamos modificar a cor do nosso componente `Square` através do nosso componente `Button`.
+
+E assim entender o fluxo de dados do React.
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+import Button from './button'
+import Square from './square'
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      color: 'green',
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <Square color={this.state.color} />
+        {['red', 'green', 'blue'].map(color => (
+          <Button key={color} handleClick={() => this.setState({ color })}>
+            {color}
+          </Button>
+        ))}
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Neste exemplo simples conseguimos ver como funciona o fluxo de dados dentro do React, pois definimos um estado inicial dentro da nossa aplicação e dentro do nosso componente pai temos os nosso componentes que serão manipulados. No casso os componentes `Button` e `Square`.
+
+Dentro do React precisamos focar apenas no fluxo de dados e não na manipulação do DOM, pois em nenhum momento estamos preocupados em fazer uma seleção manual de elementos.
+
+Esse processo quem faz é o React, onde apenas dizemos para ele que queremos que uma informação tenha um determinado estado e de acordo com o click do botão essa informação possa ser alterada através da função `setState`.
+
+Que é basicamente o que fizemos neste exemplo.
+
+Com isso precisamos entender alguns conceitos.
+
+O primeiro é que no React sempre trabalhamos com imutabilidade, não podemos fazer atribuição de um valor de forma manual para um estado, sempre iremos utilizar a função setState para setar o estado da nossa aplicação.
+
+O segundo é que a nossa função render sempre retorna uma função pura se for gerado efeitos colaterais, o React não irá conseguir trabalhar de forma correta.
+
+A terceira é que toda modificação de propriedade não iremos fazer no próprio elemento, porque este elemento recebe essa mesma propriedade acima dele e para isso precisamos verificar quem está fazendo acima para fazermos a modificação.

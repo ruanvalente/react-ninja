@@ -12,7 +12,7 @@ const Square = ({ color }) => (
 )
 
 Square.defaultProps = {
-  color: '#333'
+  color: '#000'
 }
 
 export default Square
