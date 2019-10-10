@@ -1116,3 +1116,196 @@ No fluxo de Updating temos os métodos:
 
 - **componentDidUpdate (prevProps, prevState)**:
   - Usamos este método quando o nosso componente defato será atualizado, e ainda por meio dos parâmetros recebidos podemos pegar as props anteriores e o estado anterior desse componente.
+
+# Lifecycle fluxo de montagem e desmontagem.
+
+Nesta aula vamos ver na prática os métodos de Mounting / Unmounting do lifecycle do React.
+
+### componentWillMount
+
+Após do constructor o método seguinte executado é o `componentWillMount`, ainda antes do `render`.
+
+Esse método é executado uma vez por componente e pode inclusive realizar alterações no estado:
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+import Button from './button'
+import Square from './square'
+
+class App extends Component {
+  constructor() {
+    console.log('constructor')
+    super()
+    this.state = {
+      color: 'green',
+    }
+  }
+
+  componentWillMount() {
+    console.log('componentWillMount')
+  }
+
+  render() {
+    console.log('render')
+    return (
+      <div>
+        <Square color={this.state.color} />
+        {['red', 'green', 'blue'].map(color => (
+          <Button key={color} handleClick={() => this.setState({ color })}>
+            {color}
+          </Button>
+        ))}
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Neste exemplo será mostrado o log do `constructor` pois ele é executado assim que a nossa classe é instânciada e em seguida é executado o método `componentWillMount` que é executado antes do método `render`.
+
+E por fim é executado o método `render`, renderizado o nosso componente.
+
+### componentDidMount
+
+Chamado após o render indica que a renderização inicial do nosso componente foi finalizada, é o local recomendado para fazer qualquer processo assíncrono ou de efeito colateral como chamadas à API, referenciar componentes criados no render ou inclusive alterar o estado, disparando uma nova atualização no fluxo do componente.
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+import Button from './button'
+import Square from './square'
+
+class App extends Component {
+  constructor() {
+    console.log('constructor')
+    super()
+    this.state = {
+      color: 'green',
+    }
+  }
+
+  componentWillMount() {
+    console.log('componentWillMount')
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+  }
+
+  render() {
+    console.log('render')
+    return (
+      <div>
+        <Square color={this.state.color} />
+        {['red', 'green', 'blue'].map(color => (
+          <Button key={color} handleClick={() => this.setState({ color })}>
+            {color}
+          </Button>
+        ))}
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+### componentWillUnmount
+
+Chamado antes de um componente ser desmontado, ótimo para cancelar `EventListeners` ou `setIntervals` que ainda possam estar sendo executados.
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+import Timer from './timer'
+
+class App extends Component {
+  constructor() {
+    console.log('constructor')
+    super()
+    this.state = {
+      showTimer: true,
+    }
+  }
+
+  componentWillMount() {
+    console.log('componentWillMount')
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+  }
+
+  render() {
+    console.log('render')
+    return (
+      <div>
+        {this.state.showTimer && <Timer />}
+        <button
+          onClick={() => {
+            this.setState({
+              showTimer: !this.state.showTimer,
+            })
+          }}
+        >
+          Show / hide timer
+        </button>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+> timer.js
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class Timer extends Component {
+  constructor() {
+    super()
+    this.state = {
+      time: 0,
+    }
+    this.value
+  }
+
+  componentDidMount() {
+    this.value = setInterval(() => {
+      this.setState({
+        time: this.state.time + 1,
+      })
+    }, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.value)
+  }
+
+  render() {
+    return <div>Timer: {this.state.time}</div>
+  }
+}
+
+export default Timer
+```
+
+Neste exemplo usamos o método `componentWillUnmount` para que possamos remover a execução do setInterval feita dentro do nosso componente `Timer`.
