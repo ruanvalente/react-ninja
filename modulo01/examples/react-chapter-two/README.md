@@ -1075,3 +1075,44 @@ O primeiro é que no React sempre trabalhamos com imutabilidade, não podemos fa
 O segundo é que a nossa função render sempre retorna uma função pura se for gerado efeitos colaterais, o React não irá conseguir trabalhar de forma correta.
 
 A terceira é que toda modificação de propriedade não iremos fazer no próprio elemento, porque este elemento recebe essa mesma propriedade acima dele e para isso precisamos verificar quem está fazendo acima para fazermos a modificação.
+
+# Lifecycle dos componentes.
+
+Lifecycle dentro do React refere-se ao ciclo de vida de um componente.
+
+Todo componente no React possui um ciclo de vida, dizemos que os componentes são montados em tela, podem sofrer alterações e no fim são desmontados. Assim, a cada passo do ciclo de vida de um componente conseguimos chamar métodos interceptando sua renderização tradicional ou captando informações desse ciclo. Esses métodos são definidos junto à classe do componente, o `render` é um deles.
+
+Temos os seguintes fluxos de ciclo de vida para os nosso componentes são:
+
+- Mounting / Unmounting - ( Montagem e Desmontagem )
+- Updating - ( Atualização )
+
+No fluxo de Mounting / Unmounting temos os métodos:
+
+- **componentWillMount**:
+
+  - Usamos esse método para fazer algo antes do nosso componente ser montado.
+
+- **componentDidMount**:
+
+  - Usamos esse método para fazer algo quando esse componente acabou de ser montado.
+
+- **componentWillUnmount**:
+  - Usamos esse método para fazer algo quando este componente será desmontado ou removido da tela.
+
+No fluxo de Updating temos os métodos:
+
+- **componentWillReceiveProps (nextProps)**:
+
+  - Usamos esse método para fazer algo no momento que o componente vai receber novas propriedades e por parâmetro conseguimos pegar quais são essas novas propriedades.
+
+- **shouldComponentUpdate (nextProps, nextState) => bool**:
+
+  - Usamos esse método para ser executado quando o componente deve ou não ser atualizado. Recebendo por parâmetro as próximas propriedades e próximos estados da aplicação e no seu retorno deve ser um `boolean`. Neste método podemos fazer a comparação para verificar se o estado anterior está sendo modificado etc, e assim não precisando fazer a renderização do nosso componente novamente caso necessário.
+
+- **componentWillUpdate (nextProps, nextState)**:
+
+  - Usamos este método quando o nosso componente ainda vai ser atualizado.
+
+- **componentDidUpdate (prevProps, prevState)**:
+  - Usamos este método quando o nosso componente defato será atualizado, e ainda por meio dos parâmetros recebidos podemos pegar as props anteriores e o estado anterior desse componente.
