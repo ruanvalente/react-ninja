@@ -1508,3 +1508,36 @@ componentDidUpdate (prevProps, prevState) {
 ```
 
 Com isso podemos ter os valores antigos do nosso componentes ;)
+
+# PropTypes.
+
+`PropTypes` exporta uma variedade de validadores que podem ser usados para certificar que os dados que você recebe são válidos.
+
+Ex:
+
+```js
+'use strict'
+import React from 'react'
+
+const Button = ({ children, handleClick }) => (
+  <button onClick={handleClick}>{children}</button>
+)
+
+Button.propTypes = {
+  handleClick: React.PropTypes.func.isRequired
+}
+
+export default Button
+```
+
+Neste exemplo estamos validando a propriedade `handleClick`, utilizando as `PropTypes` temos diversas propriedades para realizar a validação.
+
+No exemplo usamos `func` e `isRequired`.
+
+A propriedade `func` é para dizer que estamos dizendo que a propriedade que iremos fazer a validação será uma função e qualquer tipo que não seja uma função será gerado um warning dentro do nosso console.
+
+A propriedade `isRequired` como nome já diz, a propriedade é requerida dentro da nossa aplicação e se a mesma não for passada será também gerado um warning dentro do console da aplicação.
+
+> React.PropTypes foi movido para um pacote diferente desde a versão 15.5 do React. Para isso basta usar a biblioteca prop-types.
+
+[Para saber mais sobre React.PropTypes.](https://pt-br.reactjs.org/docs/typechecking-with-proptypes.html)
