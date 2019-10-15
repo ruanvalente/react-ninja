@@ -1716,3 +1716,49 @@ class Form extends Component {
 
 export default Form
 ```
+
+# Formulários (textarea).
+
+Seguindo com os estudos sobre formulários em React agora vamos ver como funciona o `textarea`.
+
+Em HTML, o texto de um elemento `<textarea>` é definido por seus filhos:
+
+```html
+<textarea>
+  Texto de exemplo.
+</textarea>
+```
+
+Em React, em vez disso, o `<textarea>` usa um atributo `value`. Desta forma, um formulário usando um `<textarea>` pode ser escrito de forma muito semelhante a um formulário que usa um input de linha única.
+
+Ex:
+
+```js
+import React, { Component } from 'react'
+
+class Form extends Component {
+  constructor () {
+    super()
+    this.state = {
+      value: 'Texto'
+    }
+  }
+
+  render () {
+    return (
+      <form>
+        <textarea
+          value={this.state.value}
+          onChange={e =>
+            this.setState({
+              value: e.target.value
+            })
+          }
+        />
+      </form>
+    )
+  }
+}
+
+export default Form
+```
