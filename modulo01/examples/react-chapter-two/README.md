@@ -1541,3 +1541,79 @@ A propriedade `isRequired` como nome já diz, a propriedade é requerida dentro 
 > React.PropTypes foi movido para um pacote diferente desde a versão 15.5 do React. Para isso basta usar a biblioteca prop-types.
 
 [Para saber mais sobre React.PropTypes.](https://pt-br.reactjs.org/docs/typechecking-with-proptypes.html)
+
+# Introdução à formulários no React.
+
+Os elementos de formulário HTML funcionam de maneira um pouco diferente de outros elementos DOM no React, porque os elementos de formulário mantêm naturalmente algum estado interno.
+
+Dentro do React temos um conceito chamado `“componentes controlados”` onde o estado mutável é normalmente mantido na propriedade `state` dos componentes e somente é atualizado apenas através do `setState()`.
+
+Ex:
+
+```js
+import React, { Component } from 'react'
+
+class Form extends Component {
+  constructor() {
+    super()
+    this.state = {
+      value: 0
+    }
+  }
+
+  render() {
+    return (
+      <form>
+        <input
+          type="text"
+          placeholder="Digite seu nome"
+          value={this.state.value}
+        />
+      </form>
+    )
+  }
+}
+
+export default Form
+```
+
+Neste exemplo temos um formulário simples de input porém não temos como alterar o seu valor, pois quando usamos a propriedade `value` que é diferente da propriedade value do HTML o React diz que está alterando uma entrada não controlada.
+
+E para que possamos alterar o valor usamos a função `onChange` setando um novo estado na nossa aplicação através do `setState`.
+
+Ex:
+
+```js
+import React, { Component } from 'react'
+
+class Form extends Component {
+  constructor () {
+    super()
+    this.state = {
+      value: ''
+    }
+  }
+
+  render () {
+    return (
+      <form>
+        <input
+          type='text'
+          placeholder='Digite seu nome'
+          value={this.state.value}
+          onChange={e => {
+            console.log(e)
+            this.setState({
+              value: e.target.value
+            })
+          }}
+        />
+      </form>
+    )
+  }
+}
+
+export default Form
+```
+
+Assim temos um componente controlado dentro da nossa aplicação e que é a recomendação da documentação do React.
