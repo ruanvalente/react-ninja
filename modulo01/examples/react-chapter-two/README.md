@@ -1470,3 +1470,25 @@ shouldComponentUpdate (nextProps, nextState) {
 ```
 
 Fazendo sempre verificações simples dentro desse método.
+
+# Lifecycle fluxo de atualização (componentWillUpdate(nextProps, nextState))
+
+O `shouldComponentUpdate` liberou a atualização, o `componentWillUpdate` realiza a intermediação entre o `render` e dessa forma você poderá realizar alguma preparação antes de realizar o `render`. Esse método também recebe as `novas propriedades` e `estado`. Após esse método, o `render` é disparado novamente com as `alterações`.
+
+Ex:
+
+> timer.js
+
+```js
+componentWillUpdate (nextProps, nextState) {
+    console.log('componentWillUpdate: timer', this.props, nextProps.time)
+}
+```
+
+O fluxo da nossa aplicação fica da seguinte forma.
+
+O construtor do app é chamado, o método componentWillMount é executado, assim é executado o render do app.
+
+Após o render é executado o nosso método componentDidMount e caso ouver alterações o render do app é executado novamente.
+
+Os métodos componentWillReceiveProps e componentWillUpdate só são executados quando fazemos a alteração em nosso estado. Onde ele recebe as novas propriedades e o novo estado da aplicação.
