@@ -25,7 +25,7 @@ const App = React.createClass({
         <Title name="Ruan Valente" />
       </div>
     )
-  },
+  }
 })
 
 export default App
@@ -49,7 +49,7 @@ import React from 'react'
 const Title = React.createClass({
   render: function() {
     return <h1>Olá {this.props.name}</h1>
-  },
+  }
 })
 
 export default Title
@@ -82,7 +82,7 @@ const App = React.createClass({
         <Title name="Ruan Valente" />
       </div>
     )
-  },
+  }
 })
 
 export default Title
@@ -111,7 +111,7 @@ const Title = React.createClass({
         <input type="text" id="input" aria-hidden={true} />
       </div>
     )
-  },
+  }
 })
 
 export default Title
@@ -133,13 +133,13 @@ import React from 'react'
 const Title = React.createClass({
   getDefaultProps: function() {
     return {
-      name: 'Desconhecido',
+      name: 'Desconhecido'
     }
   },
 
   render: function() {
     return <h1>Olá, {this.props.name}</h1>
-  },
+  }
 })
 
 export default Title
@@ -176,13 +176,13 @@ const Title = React.createClass({
   getDefaultProps: function() {
     return {
       name: 'Desconhecido',
-      skils: ['Javascript'],
+      skils: ['Javascript']
     }
   },
 
   render: function() {
     return <h1>{this.props.name + ' ' + this.props.skils}</h1>
-  },
+  }
 })
 
 export default Title
@@ -310,7 +310,7 @@ const Title = ({ name, lastName }) => {
 
 Title.defaultProps = {
   name: 'Desconhecido',
-  lastName: 'Sem sobrenome',
+  lastName: 'Sem sobrenome'
 }
 
 export default Title
@@ -372,7 +372,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  courseName: 'React Ninja',
+  courseName: 'React Ninja'
 }
 
 export default App
@@ -397,13 +397,13 @@ const Square = ({ color }) => (
     styles={{
       height: '100px',
       width: '100px',
-      backgroundColor: color,
+      backgroundColor: color
     }}
   ></div>
 )
 
 Square.defaultProps = {
-  color: '#333',
+  color: '#333'
 }
 
 export default Square
@@ -451,7 +451,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  color: '#333',
+  color: '#333'
 }
 
 export default App
@@ -484,7 +484,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  color: '#333',
+  color: '#333'
 }
 
 export default App
@@ -521,7 +521,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  color: '#333',
+  color: '#333'
 }
 
 export default App
@@ -556,7 +556,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  color: '#333',
+  color: '#333'
 }
 
 export default App
@@ -595,7 +595,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  courseName: 'React Ninja',
+  courseName: 'React Ninja'
 }
 
 export default App
@@ -717,7 +717,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  courseName: 'React Ninja',
+  courseName: 'React Ninja'
 }
 
 export default App
@@ -797,7 +797,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      text: 'Texto',
+      text: 'Texto'
     }
   }
 
@@ -830,7 +830,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      text: 'Texto',
+      text: 'Texto'
     }
   }
 
@@ -859,7 +859,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      text: 'Texto',
+      text: 'Texto'
     }
   }
 
@@ -869,7 +869,7 @@ class App extends Component {
         className="container"
         onClick={() =>
           this.setState({
-            text: 'Novo Texto',
+            text: 'Novo Texto'
           })
         }
       >
@@ -980,7 +980,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      text: 'Texto',
+      text: 'Texto'
     }
   }
 
@@ -990,7 +990,7 @@ class App extends Component {
         className="container"
         onClick={function() {
           this.setState({
-            text: 'Novo Texto',
+            text: 'Novo Texto'
           })
         }.bind(this)}
       >
@@ -1039,7 +1039,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      color: 'green',
+      color: 'green'
     }
   }
 
@@ -1142,7 +1142,7 @@ class App extends Component {
     console.log('constructor')
     super()
     this.state = {
-      color: 'green',
+      color: 'green'
     }
   }
 
@@ -1191,7 +1191,7 @@ class App extends Component {
     console.log('constructor')
     super()
     this.state = {
-      color: 'green',
+      color: 'green'
     }
   }
 
@@ -1238,7 +1238,7 @@ class App extends Component {
     console.log('constructor')
     super()
     this.state = {
-      showTimer: true,
+      showTimer: true
     }
   }
 
@@ -1258,7 +1258,7 @@ class App extends Component {
         <button
           onClick={() => {
             this.setState({
-              showTimer: !this.state.showTimer,
+              showTimer: !this.state.showTimer
             })
           }}
         >
@@ -1283,7 +1283,7 @@ class Timer extends Component {
   constructor() {
     super()
     this.state = {
-      time: 0,
+      time: 0
     }
     this.value
   }
@@ -1291,7 +1291,7 @@ class Timer extends Component {
   componentDidMount() {
     this.value = setInterval(() => {
       this.setState({
-        time: this.state.time + 1,
+        time: this.state.time + 1
       })
     }, 1000)
   }
@@ -1330,7 +1330,7 @@ class App extends Component {
     super()
     this.state = {
       time: 0,
-      showTimer: true,
+      showTimer: true
     }
   }
 
@@ -1350,7 +1350,7 @@ class App extends Component {
         <button
           onClick={() => {
             this.setState({
-              time: this.state.time + 10,
+              time: this.state.time + 10
             })
           }}
         >
@@ -1375,7 +1375,7 @@ class Timer extends Component {
   constructor() {
     super()
     this.state = {
-      time: 0,
+      time: 0
     }
     this.time
   }
@@ -1383,7 +1383,7 @@ class Timer extends Component {
   componentDidMount() {
     this.time = setInterval(() => {
       this.setState({
-        time: this.state.time + 1,
+        time: this.state.time + 1
       })
     }, 1000)
   }
@@ -1408,3 +1408,65 @@ Neste exemplo definimos o nosso estado no caso `time` com o valor `0` por padrã
 
 E com isso podemos comparar o estado atual da nossa aplicação com `nextProps` que fará a atualização dessa nova propriedade.
 
+# Lifecycle fluxo de atualização (shouldComponentUpdate(nextProps, nextState) => bool)
+
+Método responsável por determinar se o componente deve realizar o `render` novamente ou não.
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class Timer extends Component {
+  constructor() {
+    super()
+    this.state = {
+      time: 0
+    }
+    this.time
+  }
+
+  componentDidMount() {
+    this.time = setInterval(() => {
+      this.setState({
+        time: this.state.time + 1
+      })
+    }, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.time)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps', this.state.time, nextProps)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate', this.state, nextState)
+    return true
+  }
+
+  render() {
+    return <div>Timer: {this.state.time}</div>
+  }
+}
+
+export default Timer
+```
+
+Usamos está função quando precisamos fazer uma verificação se determinada props/state precisa ou não ser renderizada novamente em nossa aplicação.
+
+Ex:
+
+```js
+shouldComponentUpdate (nextProps, nextState) {
+  console.log('shouldComponentUpdate', this.state, nextState)
+  // return this.state.time !== nextState.time
+  return this.props.time !== nextProps.time
+}
+```
+
+Fazendo sempre verificações simples dentro desse método.

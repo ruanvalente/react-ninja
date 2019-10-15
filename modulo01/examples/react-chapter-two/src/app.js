@@ -8,8 +8,7 @@ class App extends Component {
     console.log('constructor')
     super()
     this.state = {
-      time: 0,
-      showTimer: true
+      time: 0
     }
   }
 
