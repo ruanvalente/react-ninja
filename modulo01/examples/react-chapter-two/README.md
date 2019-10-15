@@ -1617,3 +1617,61 @@ export default Form
 ```
 
 Assim temos um componente controlado dentro da nossa aplicação e que é a recomendação da documentação do React.
+
+
+# Formulários (checkbox e radio).
+
+Assim como no componente de input os componentes de `checkbox` e `radio` também tem o mesmo comportamento, para que possamos fazer a alteração no estado o mesmo necessita ser um componente controlado.
+
+```js
+import React, { Component } from 'react'
+
+class Form extends Component {
+  constructor () {
+    super()
+    this.state = {
+      value: '',
+      checked: false
+    }
+  }
+
+  render () {
+    return (
+      <form>
+        <label>Input: </label>
+        <input
+          type='text'
+          placeholder='Digite seu nome'
+          value={this.state.value}
+          onChange={e => {
+            console.log(e)
+            this.setState({
+              value: e.target.value
+            })
+          }}
+        />
+        <label>
+          <input
+            type='checkbox'
+            checked={this.state.checked}
+            onChange={e =>
+              this.setState({
+                checked: !this.state.checked
+              })
+            }
+          />
+          CheckBox
+        </label>
+        <input type='radio' name='rd' defaultChecked value='1' /> Radio 1
+        <input type='radio' name='rd' value='2' /> Radio 2
+      </form>
+    )
+  }
+}
+
+export default Form
+```
+
+A única diferença entre o componente de `checkbox` e `radio` para o padrão do HTML é que se não passarmos a propriedade `checkead` os mesmos se tornam componente não controlado.
+
+E podemos passar o `defaultChecked` assim o valor do radio é true.

@@ -4,13 +4,15 @@ class Form extends Component {
   constructor () {
     super()
     this.state = {
-      value: ''
+      value: '',
+      checked: false
     }
   }
 
   render () {
     return (
       <form>
+        <label>Input: </label>
         <input
           type='text'
           placeholder='Digite seu nome'
@@ -22,6 +24,20 @@ class Form extends Component {
             })
           }}
         />
+        <label>
+          <input
+            type='checkbox'
+            checked={this.state.checked}
+            onChange={e =>
+              this.setState({
+                checked: !this.state.checked
+              })
+            }
+          />
+          CheckBox
+        </label>
+        <input type='radio' name='rd' defaultChecked value='1' /> Radio 1
+        <input type='radio' name='rd' value='2' /> Radio 2
       </form>
     )
   }
