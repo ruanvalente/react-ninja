@@ -4,40 +4,26 @@ class Form extends Component {
   constructor () {
     super()
     this.state = {
-      value: '',
-      checked: false
+      value: '2'
     }
   }
 
   render () {
     return (
       <form>
-        <label>Input: </label>
-        <input
-          type='text'
-          placeholder='Digite seu nome'
-          value={this.state.value}
-          onChange={e => {
-            console.log(e)
+        <select
+          multiple
+          value={['1', '2']}
+          onChange={e =>
             this.setState({
               value: e.target.value
             })
-          }}
-        />
-        <label>
-          <input
-            type='checkbox'
-            checked={this.state.checked}
-            onChange={e =>
-              this.setState({
-                checked: !this.state.checked
-              })
-            }
-          />
-          CheckBox
-        </label>
-        <input type='radio' name='rd' defaultChecked value='1' /> Radio 1
-        <input type='radio' name='rd' value='2' /> Radio 2
+          }
+        >
+          <option value='1'>1</option>
+          <option value='2'>2</option>
+          <option value='3'>3</option>
+        </select>
       </form>
     )
   }

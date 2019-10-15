@@ -1675,3 +1675,44 @@ export default Form
 A única diferença entre o componente de `checkbox` e `radio` para o padrão do HTML é que se não passarmos a propriedade `checkead` os mesmos se tornam componente não controlado.
 
 E podemos passar o `defaultChecked` assim o valor do radio é true.
+
+# Formulários (select e option).
+
+Agora vamos ao exemplo usando `select` e `option`.
+
+Ex:
+
+```js
+import React, { Component } from 'react'
+
+class Form extends Component {
+  constructor () {
+    super()
+    this.state = {
+      value: '2'
+    }
+  }
+
+  render () {
+    return (
+      <form>
+        <select
+          multiple
+          value={['1', '2']}
+          onChange={e =>
+            this.setState({
+              value: e.target.value
+            })
+          }
+        >
+          <option value='1'>1</option>
+          <option value='2'>2</option>
+          <option value='3'>3</option>
+        </select>
+      </form>
+    )
+  }
+}
+
+export default Form
+```
