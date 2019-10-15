@@ -1310,7 +1310,7 @@ export default Timer
 
 Neste exemplo usamos o método `componentWillUnmount` para que possamos remover a execução do setInterval feita dentro do nosso componente `Timer`.
 
-# Lifecycle fluxo de atualização (componentWillReceiveProps(nextProps))
+# Lifecycle fluxo de atualização (componentWillReceiveProps(nextProps)).
 
 Executado automaticamente toda vez que alguma propriedade do componente for atualizada.
 
@@ -1408,7 +1408,7 @@ Neste exemplo definimos o nosso estado no caso `time` com o valor `0` por padrã
 
 E com isso podemos comparar o estado atual da nossa aplicação com `nextProps` que fará a atualização dessa nova propriedade.
 
-# Lifecycle fluxo de atualização (shouldComponentUpdate(nextProps, nextState) => bool)
+# Lifecycle fluxo de atualização (shouldComponentUpdate(nextProps, nextState) => bool).
 
 Método responsável por determinar se o componente deve realizar o `render` novamente ou não.
 
@@ -1471,7 +1471,7 @@ shouldComponentUpdate (nextProps, nextState) {
 
 Fazendo sempre verificações simples dentro desse método.
 
-# Lifecycle fluxo de atualização (componentWillUpdate(nextProps, nextState))
+# Lifecycle fluxo de atualização (componentWillUpdate(nextProps, nextState)).
 
 O `shouldComponentUpdate` liberou a atualização, o `componentWillUpdate` realiza a intermediação entre o `render` e dessa forma você poderá realizar alguma preparação antes de realizar o `render`. Esse método também recebe as `novas propriedades` e `estado`. Após esse método, o `render` é disparado novamente com as `alterações`.
 
@@ -1492,3 +1492,19 @@ O construtor do app é chamado, o método componentWillMount é executado, assim
 Após o render é executado o nosso método componentDidMount e caso ouver alterações o render do app é executado novamente.
 
 Os métodos componentWillReceiveProps e componentWillUpdate só são executados quando fazemos a alteração em nosso estado. Onde ele recebe as novas propriedades e o novo estado da aplicação.
+
+# Lifecycle fluxo de atualização (componentDidUpdate(prevPros, prevState)).
+
+Executado após o novo `render` indicando que o componente foi atualizado com sucesso. Recebe as propriedades e estado antigos como parâmetro.
+
+Ex:
+
+> timer.js
+
+```js
+componentDidUpdate (prevProps, prevState) {
+    console.log('componentDidUpdate: timer', this.props, prevProps)
+}
+```
+
+Com isso podemos ter os valores antigos do nosso componentes ;)
