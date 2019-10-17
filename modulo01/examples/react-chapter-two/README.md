@@ -25,7 +25,7 @@ const App = React.createClass({
         <Title name="Ruan Valente" />
       </div>
     )
-  }
+  },
 })
 
 export default App
@@ -49,7 +49,7 @@ import React from 'react'
 const Title = React.createClass({
   render: function() {
     return <h1>Olá {this.props.name}</h1>
-  }
+  },
 })
 
 export default Title
@@ -82,7 +82,7 @@ const App = React.createClass({
         <Title name="Ruan Valente" />
       </div>
     )
-  }
+  },
 })
 
 export default Title
@@ -111,7 +111,7 @@ const Title = React.createClass({
         <input type="text" id="input" aria-hidden={true} />
       </div>
     )
-  }
+  },
 })
 
 export default Title
@@ -133,13 +133,13 @@ import React from 'react'
 const Title = React.createClass({
   getDefaultProps: function() {
     return {
-      name: 'Desconhecido'
+      name: 'Desconhecido',
     }
   },
 
   render: function() {
     return <h1>Olá, {this.props.name}</h1>
-  }
+  },
 })
 
 export default Title
@@ -176,13 +176,13 @@ const Title = React.createClass({
   getDefaultProps: function() {
     return {
       name: 'Desconhecido',
-      skils: ['Javascript']
+      skils: ['Javascript'],
     }
   },
 
   render: function() {
     return <h1>{this.props.name + ' ' + this.props.skils}</h1>
-  }
+  },
 })
 
 export default Title
@@ -310,7 +310,7 @@ const Title = ({ name, lastName }) => {
 
 Title.defaultProps = {
   name: 'Desconhecido',
-  lastName: 'Sem sobrenome'
+  lastName: 'Sem sobrenome',
 }
 
 export default Title
@@ -372,7 +372,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  courseName: 'React Ninja'
+  courseName: 'React Ninja',
 }
 
 export default App
@@ -397,13 +397,13 @@ const Square = ({ color }) => (
     styles={{
       height: '100px',
       width: '100px',
-      backgroundColor: color
+      backgroundColor: color,
     }}
   ></div>
 )
 
 Square.defaultProps = {
-  color: '#333'
+  color: '#333',
 }
 
 export default Square
@@ -451,7 +451,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  color: '#333'
+  color: '#333',
 }
 
 export default App
@@ -484,7 +484,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  color: '#333'
+  color: '#333',
 }
 
 export default App
@@ -521,7 +521,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  color: '#333'
+  color: '#333',
 }
 
 export default App
@@ -556,7 +556,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  color: '#333'
+  color: '#333',
 }
 
 export default App
@@ -595,7 +595,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  courseName: 'React Ninja'
+  courseName: 'React Ninja',
 }
 
 export default App
@@ -717,7 +717,7 @@ class App extends Component {
 }
 
 App.defaultProps = {
-  courseName: 'React Ninja'
+  courseName: 'React Ninja',
 }
 
 export default App
@@ -797,7 +797,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      text: 'Texto'
+      text: 'Texto',
     }
   }
 
@@ -830,7 +830,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      text: 'Texto'
+      text: 'Texto',
     }
   }
 
@@ -859,7 +859,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      text: 'Texto'
+      text: 'Texto',
     }
   }
 
@@ -869,7 +869,7 @@ class App extends Component {
         className="container"
         onClick={() =>
           this.setState({
-            text: 'Novo Texto'
+            text: 'Novo Texto',
           })
         }
       >
@@ -980,7 +980,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      text: 'Texto'
+      text: 'Texto',
     }
   }
 
@@ -990,7 +990,7 @@ class App extends Component {
         className="container"
         onClick={function() {
           this.setState({
-            text: 'Novo Texto'
+            text: 'Novo Texto',
           })
         }.bind(this)}
       >
@@ -1039,7 +1039,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      color: 'green'
+      color: 'green',
     }
   }
 
@@ -1142,7 +1142,7 @@ class App extends Component {
     console.log('constructor')
     super()
     this.state = {
-      color: 'green'
+      color: 'green',
     }
   }
 
@@ -1191,7 +1191,7 @@ class App extends Component {
     console.log('constructor')
     super()
     this.state = {
-      color: 'green'
+      color: 'green',
     }
   }
 
@@ -1238,7 +1238,7 @@ class App extends Component {
     console.log('constructor')
     super()
     this.state = {
-      showTimer: true
+      showTimer: true,
     }
   }
 
@@ -1258,7 +1258,7 @@ class App extends Component {
         <button
           onClick={() => {
             this.setState({
-              showTimer: !this.state.showTimer
+              showTimer: !this.state.showTimer,
             })
           }}
         >
@@ -1283,7 +1283,7 @@ class Timer extends Component {
   constructor() {
     super()
     this.state = {
-      time: 0
+      time: 0,
     }
     this.value
   }
@@ -1291,7 +1291,7 @@ class Timer extends Component {
   componentDidMount() {
     this.value = setInterval(() => {
       this.setState({
-        time: this.state.time + 1
+        time: this.state.time + 1,
       })
     }, 1000)
   }
@@ -1330,7 +1330,7 @@ class App extends Component {
     super()
     this.state = {
       time: 0,
-      showTimer: true
+      showTimer: true,
     }
   }
 
@@ -1350,7 +1350,7 @@ class App extends Component {
         <button
           onClick={() => {
             this.setState({
-              time: this.state.time + 10
+              time: this.state.time + 10,
             })
           }}
         >
@@ -1375,7 +1375,7 @@ class Timer extends Component {
   constructor() {
     super()
     this.state = {
-      time: 0
+      time: 0,
     }
     this.time
   }
@@ -1383,7 +1383,7 @@ class Timer extends Component {
   componentDidMount() {
     this.time = setInterval(() => {
       this.setState({
-        time: this.state.time + 1
+        time: this.state.time + 1,
       })
     }, 1000)
   }
@@ -1423,7 +1423,7 @@ class Timer extends Component {
   constructor() {
     super()
     this.state = {
-      time: 0
+      time: 0,
     }
     this.time
   }
@@ -1431,7 +1431,7 @@ class Timer extends Component {
   componentDidMount() {
     this.time = setInterval(() => {
       this.setState({
-        time: this.state.time + 1
+        time: this.state.time + 1,
       })
     }, 1000)
   }
@@ -1524,7 +1524,7 @@ const Button = ({ children, handleClick }) => (
 )
 
 Button.propTypes = {
-  handleClick: React.PropTypes.func.isRequired
+  handleClick: React.PropTypes.func.isRequired,
 }
 
 export default Button
@@ -1557,7 +1557,7 @@ class Form extends Component {
   constructor() {
     super()
     this.state = {
-      value: 0
+      value: 0,
     }
   }
 
@@ -1587,24 +1587,24 @@ Ex:
 import React, { Component } from 'react'
 
 class Form extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
-      value: ''
+      value: '',
     }
   }
 
-  render () {
+  render() {
     return (
       <form>
         <input
-          type='text'
-          placeholder='Digite seu nome'
+          type="text"
+          placeholder="Digite seu nome"
           value={this.state.value}
           onChange={e => {
             console.log(e)
             this.setState({
-              value: e.target.value
+              value: e.target.value,
             })
           }}
         />
@@ -1618,7 +1618,6 @@ export default Form
 
 Assim temos um componente controlado dentro da nossa aplicação e que é a recomendação da documentação do React.
 
-
 # Formulários (checkbox e radio).
 
 Assim como no componente de input os componentes de `checkbox` e `radio` também tem o mesmo comportamento, para que possamos fazer a alteração no estado o mesmo necessita ser um componente controlado.
@@ -1627,43 +1626,43 @@ Assim como no componente de input os componentes de `checkbox` e `radio` também
 import React, { Component } from 'react'
 
 class Form extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       value: '',
-      checked: false
+      checked: false,
     }
   }
 
-  render () {
+  render() {
     return (
       <form>
         <label>Input: </label>
         <input
-          type='text'
-          placeholder='Digite seu nome'
+          type="text"
+          placeholder="Digite seu nome"
           value={this.state.value}
           onChange={e => {
             console.log(e)
             this.setState({
-              value: e.target.value
+              value: e.target.value,
             })
           }}
         />
         <label>
           <input
-            type='checkbox'
+            type="checkbox"
             checked={this.state.checked}
             onChange={e =>
               this.setState({
-                checked: !this.state.checked
+                checked: !this.state.checked,
               })
             }
           />
           CheckBox
         </label>
-        <input type='radio' name='rd' defaultChecked value='1' /> Radio 1
-        <input type='radio' name='rd' value='2' /> Radio 2
+        <input type="radio" name="rd" defaultChecked value="1" /> Radio 1
+        <input type="radio" name="rd" value="2" /> Radio 2
       </form>
     )
   }
@@ -1686,14 +1685,14 @@ Ex:
 import React, { Component } from 'react'
 
 class Form extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
-      value: '2'
+      value: '2',
     }
   }
 
-  render () {
+  render() {
     return (
       <form>
         <select
@@ -1701,13 +1700,13 @@ class Form extends Component {
           value={['1', '2']}
           onChange={e =>
             this.setState({
-              value: e.target.value
+              value: e.target.value,
             })
           }
         >
-          <option value='1'>1</option>
-          <option value='2'>2</option>
-          <option value='3'>3</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
         </select>
       </form>
     )
@@ -1737,21 +1736,21 @@ Ex:
 import React, { Component } from 'react'
 
 class Form extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
-      value: 'Texto'
+      value: 'Texto',
     }
   }
 
-  render () {
+  render() {
     return (
       <form>
         <textarea
           value={this.state.value}
           onChange={e =>
             this.setState({
-              value: e.target.value
+              value: e.target.value,
             })
           }
         />
@@ -1770,8 +1769,8 @@ Agora vamos ver quais são os principais eventos de formulários dentro do React
 Dentro do React existem alguns eventos para formulário:
 
 - onChange
-- onInput 
-- onSubmit 
+- onInput
+- onSubmit
 
 O onInput não iremos ver pois o seu funcionamente é igual ao `onChange` para elementos input, porém o React recomenda o uso da função `onChange`.
 
@@ -1781,14 +1780,14 @@ Iremos ver o evento `onSubmit`.
 import React, { Component } from 'react'
 
 class Form extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
-      value: ''
+      value: '',
     }
   }
 
-  render () {
+  render() {
     return (
       <form
         onSubmit={e => {
@@ -1800,9 +1799,9 @@ class Form extends Component {
           console.log('value', e.target.value)
         }}
       >
-        <input type='name' name='name' />
-        <input type='email' name='email' />
-        <button type='submit'>Enviar</button>
+        <input type="name" name="name" />
+        <input type="email" name="email" />
+        <button type="submit">Enviar</button>
       </form>
     )
   }
@@ -1812,3 +1811,110 @@ export default Form
 ```
 
 Neste exemplo usamos o evento `onSubmit` quando desejamos fazer algo antes de ser feito o submit do formulário da nossa aplicação.
+
+# setState é assíncrono.
+
+A função `setState()` agenda uma atualização para o objeto `state` de um componente. Quando o `state` muda, o componente responde renderizando novamente.
+
+Porém dentro de eventos a função `setState` funciona de forma `assícrona`.
+
+Por exemplo, vamos supor que queremos fazer um componente simples de checkbox que quando o `state` for alterado possamos mostrar uma div com uma mensagem simples ao usuário.
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      checked: false,
+      showContent: false,
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={this.state.checked}
+            onChange={() => {
+              this.setState({ checked: !this.state.checked })
+              this.setState({ showContent: this.state.checked })
+            }}
+          />
+          Mostrar mensagem
+        </label>
+        {this.state.showContent && (
+          <div>
+            <p>Olá, Ruan</p>
+          </div>
+        )}
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Dessa forma temos um comportamente um tanto estranho, quando clicamos no checkbox e alteramos o estado do nosso componente a mensagem não é exibida porém, quando retiramos o `checked` é que a mensagem é mostrada em tela.
+
+Agora porque este comportamente ?
+
+A função `setState()` é `assícrona` !! Para que possamos pegar as alterações feitas no estado da nossa aplicação poderiamos fazer da algumas formas, porém a forma mais simples e seguindo a documentação do React passando uma outra função como callback dentro do nosso `setState`.
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      checked: false,
+      showContent: false,
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={this.state.checked}
+            onChange={() => {
+              this.setState({ checked: !this.state.checked }, () => {
+                this.setState({ showContent: this.state.checked })
+              })
+            }}
+          />
+          Mostrar mensagem
+        </label>
+        {this.state.showContent && (
+          <div>
+            <p>Olá, Ruan</p>
+          </div>
+        )}
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+React intencionalmente “espera” até todos os componentes terem chamado `setState()` em seus manipuladores de evento antes de começar a renderizar novamente. Isso aumenta performance por evitar renderizações desnecessárias.
+
+Com isso podemos fazer a atualização do nosso estado com base na atualização anterior.
+
+[setState - React](https://pt-br.reactjs.org/docs/faq-state.html)
