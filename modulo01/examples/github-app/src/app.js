@@ -3,30 +3,38 @@
 import React, { Component } from 'react'
 import AppContent from './components/app-content'
 
+import ajax from '@fdaciuk/ajax'
+
 class App extends Component {
   constructor () {
     super()
     this.state = {
-      userinfo: {
-        username: 'Ruan Valente',
-        photo: 'https://avatars3.githubusercontent.com/u/6674232?v=4',
-        login: 'ruanvalente',
-        repos: 2,
-        followers: 12,
-        following: 10
-      },
-      repos: [
-        {
-          link: '#',
-          name: 'Repositório'
-        }
-      ],
-      starred: [
-        {
-          link: '#',
-          name: 'Repositório'
-        }
-      ]
+      userinfo: null,
+      repos: [],
+      starred: []
+    }
+  }
+
+  handleSearch (e) {
+    const value = e.target.value
+    const keyCode = e.which || e.keyCode
+    const ENTER = 13
+
+    if (keyCode === ENTER) {
+      ajax()
+        .get(`https://api.github.com/users/${value}`)
+        .then(result => {
+          this.setState({
+            userinfo: {
+              username: result.name,
+              photo: result.avatar_url,
+              login: result.login,
+              repos: result.public_repos,
+              followers: result.followers,
+              following: result.following
+            }
+          })
+        })
     }
   }
 
@@ -36,6 +44,7 @@ class App extends Component {
         userinfo={this.state.userinfo}
         repos={this.state.repos}
         starred={this.state.starred}
+        handleSearch={e => this.handleSearch(e)}
       />
     )
   }
