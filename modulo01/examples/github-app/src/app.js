@@ -38,6 +38,23 @@ class App extends Component {
     }
   }
 
+  getRepos (type) {
+    return e => {
+      ajax()
+        .get(`https://api.github.com/users/ruanvalente/${type}`)
+        .then(result => {
+          this.setState({
+            [type]: result.map(data => {
+              return {
+                link: data.html_url,
+                name: data.name
+              }
+            })
+          })
+        })
+    }
+  }
+
   render () {
     return (
       <AppContent
@@ -45,8 +62,8 @@ class App extends Component {
         repos={this.state.repos}
         starred={this.state.starred}
         handleSearch={e => this.handleSearch(e)}
-        getRepos={() => console.log('Repos')}
-        getStarred={() => console.log('Starred')}
+        getRepos={this.getRepos('repos')}
+        getStarred={this.getRepos('starred')}
       />
     )
   }
