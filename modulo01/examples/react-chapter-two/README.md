@@ -2172,3 +2172,93 @@ console.log(sum(1, 2) === 5)
 Com isso temos uma pequena ideia de como funciona os testes, dentro do console.log executamos a função sum passando os argumentos necessários e fazemos um teste com o retorno da função se é igual ao número que estamos testando com isso temos o retorno true ou false.
 
 Basicamente é a forma que podemos começar a escrever os nossos testes.
+
+# TDD.
+
+TDD é o desenvolvimento de software orientado a testes, ou em inglês, Test Driven Development. Mas mais do que simplesmente testar seu código, TDD é uma filosofia, uma cultura.
+
+Dentro do TDD existe um conceito simples dentro do ciclo de desenvolvimento com TDD:
+
+- RED - Fazer um teste para quebrar;
+- GREEN - Escrever um código, usando baby steps, para que o teste passe;
+- REFACTOR - Com o teste passado, refatorar o código, se necessário, para que funcione de maneira aceitável.
+
+Agora para continuar o nosso exemplo podemos continuar usando a API do console porém usando o método `assert`.
+
+#### assert.
+
+O método assert basicamente escreve uma mensagem de erro para o console se a afirmação é falsa. Se a firmação é verdadeira, nada acontece.
+
+Teste é um método que contém asserções — segundo o dicionário Houaiss, asserção significa "afirmação categórica" — e que representam um cenário de testes em particular. Um teste só passará caso todas as asserções sejam verdadeiras.
+
+Seguindo o ciclo do TDD precisamos fazer:
+
+- RED - Fazer um teste para quebrar;
+- GREEN - Escrever um código, usando baby steps, para que o teste passe;
+- REFACTOR - Com o teste passado, refatorar o código, se necessário, para que funcione de maneira aceitável.
+
+Seguindo esse fluxo vamos começar e vamos fazer um teste que irá quebrar, faremos um teste que verificar se `sum` é uma função.
+
+Ex:
+
+> sum.js
+
+```js
+```
+
+> sum-test.js
+
+```js
+'use strict'
+
+const sum = require('./sum')
+console.assert(typeof sum === 'function', 'should sum is a function')
+```
+
+Com vimos o nosso arquivo `sum` está vazio e com isso o nosso teste irá falhar.
+
+> Assertion failed: should sum is a function
+
+Agora vamos escrever um código que irá passar seguindo o fluxo do TDD.
+
+Ex:
+
+> sum.js
+
+```js
+'use strict'
+
+module.exports = function () {}
+```
+
+Dessa forma escrevendo a menor implementação possível usando baby steps fazemos com que a nosso teste venha passar.
+
+Agora precisamos verificar se há necessidade de refatoração no nosso código após isso voltamos ao fluxo novamente.
+
+Ex:
+
+> sum-test.js
+```js
+'use strict'
+
+const sum = require('./sum')
+
+console.assert(typeof sum === 'function', 'should sum is a function')
+console.assert(sum(1, 2) === 3, 'should sum(1, 2) return 3')
+console.assert(sum(1, 3) === 4, 'should sum(1, 3) return 4')
+console.log('All tests passed!')
+```
+
+> sum.js
+
+```js
+'use strict'
+
+function sum (x, y) {
+  return x + y
+}
+
+module.exports = sum
+```
+
+Com isso podemos entender o básico sobre TDD.
