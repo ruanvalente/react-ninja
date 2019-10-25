@@ -35,6 +35,9 @@ AppContent.propTypes = {
   userinfo: PropTypes.object,
   repos: PropTypes.array.isRequired,
   starred: PropTypes.array.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  getRepos: PropTypes.func.isRequired,
+  getStarred: PropTypes.func.isRequired,
   isFetching: PropTypes.bool
 }
 
