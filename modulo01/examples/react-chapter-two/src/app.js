@@ -5,32 +5,17 @@ import React, { Component } from 'react'
 class App extends Component {
   constructor () {
     super()
-    this.state = {
-      checked: false,
-      showContent: false
-    }
+    this.teste = this.teste.bind(this)
+  }
+  teste () {
+    console.log(this)
+    console.log('click')
   }
 
   render () {
     return (
-      <div>
-        <label>
-          <input
-            type='checkbox'
-            checked={this.state.checked}
-            onChange={() => {
-              this.setState({ checked: !this.state.checked }, () => {
-                this.setState({ showContent: this.state.checked })
-              })
-            }}
-          />
-          Mostrar mensagem
-        </label>
-        {this.state.showContent && (
-          <div>
-            <p>Olá, Ruan</p>
-          </div>
-        )}
+      <div onClick={this.teste}>
+        <h1>App</h1>
       </div>
     )
   }

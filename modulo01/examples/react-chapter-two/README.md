@@ -1918,3 +1918,74 @@ React intencionalmente “espera” até todos os componentes terem chamado `set
 Com isso podemos fazer a atualização do nosso estado com base na atualização anterior.
 
 [setState - React](https://pt-br.reactjs.org/docs/faq-state.html)
+
+# Formas de fazer bind do this em eventos.
+
+O `bind` resolve um problema causado pelo `contexto do JavaScript`, ele provê uma maneira de garantir que mesmo desacoplando uma função de um objeto o comportamento dele continue o mesmo, garantindo assim uma integridade do comportamento da função. Isso é interessante no caso de `programação funcional`, onde o ideal é termos funções puras, que possuem como parte de sua ideologia ser uma função sem efeito colateral.
+
+Dentro do React podemos fazer bind de algumas formas:
+
+- usando arrow functions
+- usando bind na função diretamente.
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class App extends Component {
+  teste () {
+    console.log(this)
+    console.log('click')
+  }
+
+  render () {
+    return (
+      <div onClick={this.teste}>
+        <h1>App</h1>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Dessa forma o `this` estará apontando para `undefined` e não para a nossa classe `App`.
+
+Para resolver isso poderiamos ter feito usando Arrow Functions ou fazer o `bind do this` no nosso `construtor`.
+
+Ex:
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class App extends Component {
+  constructor () {
+    super()
+    this.teste = this.teste.bind(this)
+  }
+  teste () {
+    console.log(this)
+    console.log('click')
+  }
+
+  render () {
+    return (
+      <div onClick={this.teste}>
+        <h1>App</h1>
+      </div>
+    )
+  }
+}
+
+export default App
+```
+
+Dessa forma o `this` estará apontando agora para a nossa classe `App`. 
+
+[Para saber mais sobre o this](https://pt.stackoverflow.com/questions/127171/por-qu%C3%AA-%C3%A9-necess%C3%A1rio-usar-bind-quando-se-trabalha-com-es6-e-reactjs)
