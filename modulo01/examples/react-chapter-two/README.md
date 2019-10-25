@@ -2262,3 +2262,64 @@ module.exports = sum
 ```
 
 Com isso podemos entender o básico sobre TDD.
+
+# Testes unitários em componentes.
+
+Usando os conceitos vistos antes vamos aplicar tudo em nossos componentes, vamos fazer algo simples iremos testar um componente de título.
+
+Ex:
+
+> title.js
+
+```js
+'use strict'
+
+const React = require('react')
+
+const Title = () => React.createElement('h1', null, 'Título')
+
+module.exports = Title
+```
+
+> title-test.js
+
+```js
+'use strict'
+
+const React = require('react')
+const ReactDOMServer = require('react-dom/server')
+
+const Title = require('./title')
+const TitleComponent = ReactDOMServer.renderToStaticMarkup(
+  React.createElement(Title)
+)
+console.log(TitleComponent)
+```
+
+O objeto ReactDOMServer permite que você renderize componentes para markup estático dentro do nosso `title-test.js` usamos o ReactDOMServer para fazer um pré-render da nossa aplicação do lado do servidor.
+
+O React retornará uma string HTML e você pode usar este método para gerar HTML no servidor e enviar o markup no request inicial para ter carregamentos de páginas mais rápidos e para permitir que motores de pesquisa rastreiem suas páginas para fins de SEO.
+
+O método renderToStaticMarkup não cria atributos DOM extras que o React usa internamente, como data-reactroot. Isso é útil se você quiser usar o React como um simples gerador de páginas estáticas, já que remover os atributos extras pode economizar alguns bytes.
+
+Ex:
+
+> title-test.js
+
+```js
+'use strict'
+
+const React = require('react')
+const ReactDOMServer = require('react-dom/server')
+const $ = require('whacko')
+const Title = require('./title')
+
+const TitleComponent = ReactDOMServer.renderToStaticMarkup(
+  React.createElement(Title)
+)
+console.log($(TitleComponent).get(0).tagName)
+```
+
+Usando a lib `whacko` a mesma tem a mesma interface ou um pouco parecida com a do jQuery com isso fizemos um teste simples para verificar o nome da tag usando a lib `whacko`.
+
+Dentro do curso será mostrado outras ferramentas para uso de testes de componentes.
