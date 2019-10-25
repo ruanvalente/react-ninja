@@ -2065,3 +2065,72 @@ console.log(obj === objCopy) // false
 
 - [Spread Operator - MDN](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Operators/Spread_operator)
 - [Usando Spread operator do ES6 - udgwebdev](https://udgwebdev.com/usando-spread-operator-do-es6/)
+
+# Trabalhando com libs de terceiros junto com o React.
+
+Sabemos que não precisamos nos preocupar com a manipulação de DOM dentro do React, apenas nos preocupamos com os dados da nossa aplicação o React faz todo o trabalho pesado fazendo a manipulação dos elementos do DOM e assim podemos focar apenas nos dados da aplicação.
+
+Mas, pode haver casos que poderia ser necessário o uso de um lib de terceiros para fazer a manipulçao do DOM então como podemos fazer isso dentro do React ?.
+
+Vamos criar um exemplo simples, neste exemplo faremos uma "lib" que irá apenas dar `focus` no input.
+
+Ex:
+
+> app.js
+
+```js
+'use strict'
+
+import React from 'react'
+import Lib from './lib'
+
+const App = () => (
+  <div>
+    App
+    <Lib />
+  </div>
+)
+
+export default App
+```
+
+> lib.js
+
+```js
+'use strict'
+
+import React, { Component } from 'react'
+
+class Lib extends Component {
+  constructor () {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick () {
+    console.log('click', this.myInput)
+    this.myInput.focus()
+  }
+
+  render () {
+    return (
+      <div>
+        <input type='text' ref={node => (this.myInput = node)} />
+        <button onClick={this.handleClick}>Focus</button>
+      </div>
+    )
+  }
+}
+
+export default Lib
+```
+
+No caso da 'lib' vamos separar a mesma em um componente onde toda a manipulação do DOM será feita na mesma.
+
+Dentro do nosso componente lib temos uma propriedade chamada `ref` essa propriedade recebe uma função na qual ela devolve a referência ao nó do elemento DOM que precisamos, no caso o input.
+
+Com isso atribuimos a uma variável da nossa classe lib chamada `myInput` que irá conter o nó referênte ao elemento DOM.
+
+E com isso dentro da nossa função `handleClick` podemos manipular esse elemento como for necessário.
+
+Agora precisamos entender que só iremos usar está forma se de alguma forma a API do React não puder resolver os problemas em sua aplicação.
