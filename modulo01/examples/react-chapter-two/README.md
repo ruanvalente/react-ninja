@@ -2134,3 +2134,41 @@ Com isso atribuimos a uma variável da nossa classe lib chamada `myInput` que ir
 E com isso dentro da nossa função `handleClick` podemos manipular esse elemento como for necessário.
 
 Agora precisamos entender que só iremos usar está forma se de alguma forma a API do React não puder resolver os problemas em sua aplicação.
+
+# Um overview sobre testes.
+
+O que é um teste ?
+
+Testes são processos que fazem parte do desenvolvimento de software, e tem como principal objetivo revelar falhas/bugs para que sejam corrigidas até que o produto final atinja a qualidade desejada / acordada.
+
+Para esse primeiro exemplo vamos usar testes simples como uma calculadora.
+
+Vamos criar um diretório chamado `test` e dentro dele vamos criar dois arquivos que são: `sum.js` e `sum-test.js`
+
+Dentro do nosso arquivo `sum.js` vamos criar a função que irá somar dois valores.
+
+```js
+'use strict'
+
+function sum (x, y) {
+  return x + y
+}
+
+module.exports = sum
+```
+
+Para que possamos testar podemos usar ferramentas específicas para testes porém neste exemplo podemos usar API de console.
+
+> sum-test.js
+```js
+'use strict'
+
+const sum = require('./sum')
+
+console.log(sum(1, 2) === 3)
+console.log(sum(1, 2) === 5)
+```
+
+Com isso temos uma pequena ideia de como funciona os testes, dentro do console.log executamos a função sum passando os argumentos necessários e fazemos um teste com o retorno da função se é igual ao número que estamos testando com isso temos o retorno true ou false.
+
+Basicamente é a forma que podemos começar a escrever os nossos testes.
