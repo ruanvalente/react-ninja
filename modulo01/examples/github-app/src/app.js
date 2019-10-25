@@ -53,7 +53,7 @@ class App extends Component {
   }
 
   getRepos (type) {
-    return e => {
+    return () => {
       const username = this.state.userinfo.login
       ajax()
         .get(this.getGithubApiURL(username, type))
