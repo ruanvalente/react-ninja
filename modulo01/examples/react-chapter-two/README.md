@@ -2320,6 +2320,6 @@ const TitleComponent = ReactDOMServer.renderToStaticMarkup(
 console.log($(TitleComponent).get(0).tagName)
 ```
 
-Usando a lib `whacko` a mesma tem a mesma interface ou um pouco parecida com a do jQuery com isso fizemos um teste simples para verificar o nome da tag usando a lib `whacko`.
+Usando a lib `whacko` temos uma interface ou um pouco parecida com a do jQuery com isso fizemos um teste simples para verificar o nome da tag usando a lib `whacko`.
 
 Dentro do curso será mostrado outras ferramentas para uso de testes de componentes.
