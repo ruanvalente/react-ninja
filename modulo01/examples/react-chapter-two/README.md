@@ -1989,3 +1989,79 @@ export default App
 Dessa forma o `this` estará apontando agora para a nossa classe `App`. 
 
 [Para saber mais sobre o this](https://pt.stackoverflow.com/questions/127171/por-qu%C3%AA-%C3%A9-necess%C3%A1rio-usar-bind-quando-se-trabalha-com-es6-e-reactjs)
+
+# Entendendo o spread operator do ES6.
+
+A sintaxe de propagação `(Spread)` permite que um objeto iterável, como um array ou string, seja expandida em locais onde zero ou mais argumentos `(para chamadas de função)` ou elementos `(para literais de array)` sejam esperados ou uma expressão de objeto seja expandida em locais onde zero ou mais pares de chave-valor `(para literais de objeto)` são esperados.
+
+
+> Font MDN.
+
+##### Para chamadas de função:
+
+- minhaFuncao(...objIteravel);
+
+##### Para array literais:
+
+- [...objIteravel, 4, 5, 6]
+
+#### Desestruturação:
+
+- [a, b, ...objIteravel] = [1, 2, 3, 4, 5];
+
+Um exemplo simpres seria uma função que recebe um array de argumentos e soma os argumentos.
+
+Ex:
+
+```js
+const arr = [1,2,3]
+
+function sum (x, y, z) {
+  return x + y + z
+}
+```
+
+Agora como poderiamos somar estes argumentos ?
+
+No `ES5` poderiamos usar o `apply` onde está função recebe dois argumentos o primeiro é o `this` e o segundo o `array`.
+
+```js
+sum.apply(null, arr)
+
+// 6 
+```
+
+Com isso temos o resultado 6 pois o apply basicamente distribui para cada argumento da função sum cada elemento dentro do array:
+
+Ex:
+
+```js
+function sum (x, y, z) {
+  return arr[0] + arr[1] + arr[2]
+}
+
+sum.apply(null, arr)
+// 6
+```
+
+Agora com o `spread operator` podemos fazer isso de forma muito simples apenas usando ...
+
+```js
+sum(...arr)
+// 6
+```
+Dessa forma espalhamos ( spread ) cada elemento do array dentro da nossa função.
+
+Sabemos que os objetos são passados por referência e com o spread podemos fazer uma cópia desses objetos de forma simples ;)
+Ex:
+
+```js
+const obj = { prop1: 1, prop2: 2, prop3: 3}
+const obj2 = obj
+const objCopy = {...obj}
+console.log(obj === obj2) // true
+console.log(obj === objCopy) // false
+```
+
+- [Spread Operator - MDN](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Operators/Spread_operator)
+- [Usando Spread operator do ES6 - udgwebdev](https://udgwebdev.com/usando-spread-operator-do-es6/)
