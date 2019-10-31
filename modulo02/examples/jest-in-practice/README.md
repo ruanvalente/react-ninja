@@ -190,3 +190,133 @@ O Jest diz que ele estava esperando um valor no caso 1 porém ele recebeu 2.
 E mais abaixo ele continua a mostrar onde ocorreu o erro, qual arquivo e linha
 dessa forma temos algo muito simples de ler e entender na hora da escrita e resolução
 dos nossos testes.
+
+# Jest na prática - code coverage. (Cobertura de código)
+
+Code coverage é a cobertura de teste medida para descrever o grau em que o código fonte de um programa é executado quando um determinado conjunto de testes é executado.
+
+Com isso vamos ver como o Jest trabalha com code coverage dentro do nossos testes.
+
+Sabemos que temos apena um arquivo de teste chamado `sum.test.js` e precisamos
+criar um módulo chamado `sum.js` para que possamos começar a fazer os nossos
+testes.
+
+> touch sum.js
+
+Com o nosso arquivo criado vamos começar os testes, como o nome já diz estamos
+criando um módulo de soma que irá somar dois números, o mesmo no exemplo das
+aulas anteriores.
+
+O Jest já vem com uma ferramenta de cobertura de código, para que
+possamos utiliza-lá precisamos fazer uma pequena configuração no
+nosso arquivo `package.json`.
+
+Ex:
+
+```json
+"scripts": {
+    "test": "jest --coverage"
+  },
+```
+
+Agora com isso temos uma visão do que está sendo coberto no nosso
+código por teste ou não.
+
+Neste módulo vamos utilizar outra ferramenta de asserção o `chai` que contém uma interface simples para que possamos utilizar as nossas asserções.
+
+```
+npm install chai --save-dev
+```
+
+Dentro da interface do chai temos uma função chamada `expect` que é
+bem similar a interface vista dentro do Jest, só muda que a escrita
+é um pouco mais simples e direta.
+
+Dentro do nosso arquivo `sum.test.js` iremos importar o chai e o nosso módulo de sum.
+
+Ex:
+
+> sum.test.js
+
+```js
+'use strict'
+
+const expect = require('chai').expect
+const sum = require('./sum')
+
+it('Sum should be a function', () => {
+  expect(sum).to.be.a('function')
+})
+```
+
+> sum.js
+
+```js
+```
+
+Rodando os nosso testes temos o seguinte erro:
+
+```
+> jest --coverage
+
+ FAIL  ./sum.test.js
+  ✕ Sum should be a function (6ms)
+
+  ● Sum should be a function
+
+    AssertionError: expected {} to be a function
+
+      at Object.<anonymous> (sum.test.js:7:21)
+      at processTicksAndRejections (internal/process/task_queues.js:93:5)
+
+----------|----------|----------|----------|----------|-------------------|
+File      |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+----------|----------|----------|----------|----------|-------------------|
+All files |      100 |      100 |      100 |      100 |                   |
+ sum.js   |      100 |      100 |      100 |      100 |                   |
+----------|----------|----------|----------|----------|-------------------|
+Test Summary
+ › Ran all tests.
+ › 1 test failed, 0 tests passed (1 total in 1 test suite, run time 0.996s)
+```
+
+Como está sendo dito era esperado que um objeto fosse uma função isso porque
+o require retorna um objeto e dentro do nosso módulo de sum não contém nada,
+apenas é retornado um objeto vázio.
+
+Utilizando os mesmos conceitos visto anterior mente sobre TDD e Baby steps
+iremos escrever uma implementação que passe.
+
+> sum.js
+
+```js
+'use strict'
+
+module.exports = () => {}
+```
+
+```
+> jest --coverage
+
+ PASS  ./sum.test.js
+  ✓ Sum should be a function (4ms)
+
+----------|----------|----------|----------|----------|-------------------|
+File      |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+----------|----------|----------|----------|----------|-------------------|
+All files |      100 |      100 |        0 |      100 |                   |
+ sum.js   |      100 |      100 |        0 |      100 |                   |
+----------|----------|----------|----------|----------|-------------------|
+Test Summary
+ › Ran all tests.
+ › 1 test passed (1 total in 1 test suite, run time 0.937s)
+```
+
+Agora veja que o nosso teste passou, porém temos 0% em cobertura de códigos em funções.
+
+Isso significa que existe uma função dentro do meu código que não está coberta por testes.
+
+Quando utilizamos o coverage dentro do nossos testes é gerado uma pasta chamada
+`coverage` e dentro dela temos uma outra pasta chamada `lcov-report` que contém
+arquivos de estilos, js e uma index.html para que possamos acessar dentro do
+navegador a mesma interface que vimos em linha de comando. :smile:
