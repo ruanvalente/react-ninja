@@ -350,3 +350,18 @@ npm test -- --no-cache
 ```
 
 Com esse comando o Jest é executado sem cache.
+
+# Jest na prática - Watch interativo.
+
+Agora vamos ver uma funcionalidade muito legal do dest o `Watch`.
+
+Como o nome já deixa bem claro o que é o watch faz com que o Jest assista cada alteração que for feita dentro do nosso arquivo de teste e reflita isso na tela interativa de forma automatica.
+
+Para que isso aconteça precisamos adicionar uma configuração em nosso arquivo `package.json`
+
+```json
+{
+  // outras configurações
+  "test:watch": "npm test -- --watch"
+}
+```
