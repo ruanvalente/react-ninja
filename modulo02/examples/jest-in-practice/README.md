@@ -320,3 +320,33 @@ Quando utilizamos o coverage dentro do nossos testes é gerado uma pasta chamada
 `coverage` e dentro dela temos uma outra pasta chamada `lcov-report` que contém
 arquivos de estilos, js e uma index.html para que possamos acessar dentro do
 navegador a mesma interface que vimos em linha de comando. :smile:
+
+# Jest na prática - Integração com ES6/2015.
+
+Continuamos a ver um pouco sobre o Jest agora iremos configurar a integração com ES62015.
+
+Para que possamos realizar está configuração em nossa aplicação precisamos fazer algumas instalações.
+
+```
+npm install --save-dev babel-core@6 babel-jest@15 babel-preset-es2015@6 babel-preset-stage-0@6
+```
+
+Feita a instalação precisamos adicionar dentro do nosso projeto um arquivo chamado `.babelrc` com o seguinte conteúdo:
+
+```json
+{
+  "presets": ["es2015", "stage-0"]
+}
+```
+
+Agora com isso podemos escrever os nossos aquivos de testes usando ES62015.
+
+Caso ocorra erros pode ser devido ao cache que o Jest armazena.
+
+Para isso precisamos usar o comando:
+
+```
+npm test -- --no-cache
+```
+
+Com esse comando o Jest é executado sem cache.
