@@ -365,3 +365,65 @@ Para que isso aconteça precisamos adicionar uma configuração em nosso arquivo
   "test:watch": "npm test -- --watch"
 }
 ```
+
+# TDD: Aprendendo recursão.
+
+Em desenvolvimento de software, recursão é quando você tem uma chamada para um método ou função dela para ela mesma, em outras palavras: `uma função recursiva` é aquela que `invoca ela mesma`.
+
+Para este exemplo vamos usar uma função de soma que recebe um array de números, retornando um número com a soma de todos os números do array.
+
+Para que possamos fazer este exemplo precisamos entender duas coisas.
+
+A primeira para que a nossa função seja recursiva ela precisa chamar ela mesma e segundo precisamos de uma condição de parada.
+
+Ex:
+
+```js
+'use strict'
+
+const sum = arr => {
+  if (arr.length === 0) {
+    return 0
+  }
+  return arr[0] + sum(arr.slice(1))
+}
+
+console.log(sum([1, 2, 3])) // 6
+```
+
+Com isso temos o nosso exemplo de recursão funcionando da seguinte maneira:
+
+Primeiro criamos a função `sum` que recebe um `array` de números.
+
+Com isso fazemos uma verificação para saber quando o nosso array passado for vazio, será retornado o valor 0.
+
+E por fim temos um outro conceitos de recursão, precisamos dividir o nosso array em `cabeça` e `cauda`.
+
+Isso que dizer que estamos pegando o primeiro valor do nosso array com o último valor.
+
+```js
+// arr[0] // cabeça.
+// sum(arr.slice(1)) // cauda.
+```
+
+E assim temos o valor que queremos sendo retornado.
+
+Porém poderiamos deixar isso ainda mais simples e facíl de entender.
+
+Ex:
+
+```js
+'use strict'
+
+const sum = arr => {
+  if (arr.length === 0) {
+    return 0
+  }
+  const [head, ...tail] = arr
+  return head + sum(tail)
+}
+
+console.log(sum([1, 2, 3, 4]))
+```
+
+Usando o `destructuring` podemos fazer a desestruturação do nosso array passando o primeiro valor para a nossa variável `head` e o restante `(...tail)` para a nossa variável `tail` com isso temos o mesmo funcionamento.
