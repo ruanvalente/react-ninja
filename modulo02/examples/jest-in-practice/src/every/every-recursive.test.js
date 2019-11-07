@@ -1,7 +1,7 @@
 'use strict'
 
 import { expect } from 'chai'
-import every from './every'
+import every from './every-recursive'
 
 it('every should be a function', () => {
   expect(every).to.be.a('function')
