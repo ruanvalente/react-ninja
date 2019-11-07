@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1573146448116" clover="3.2.0">
-  <project timestamp="1573146448116" name="All files">
+<coverage generated="1573146562127" clover="3.2.0">
+  <project timestamp="1573146562127" name="All files">
     <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2" elements="10" coveredelements="10" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1">
       <file name="every-recursive.js" path="/home/ruan/Workspace/react-ninja/modulo02/examples/jest-in-practice/src/every/every-recursive.js">
         <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
