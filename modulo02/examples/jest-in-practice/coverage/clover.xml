@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1573219304551" clover="3.2.0">
-  <project timestamp="1573219304551" name="All files">
-    <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="6" coveredelements="6" complexity="0" loc="5" ncloc="5" packages="1" files="1" classes="1">
-      <file name="reverse.js" path="/home/ruan/Workspace/react-ninja/modulo02/examples/jest-in-practice/src/reverse/reverse.js">
-        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+<coverage generated="1573222952212" clover="3.2.0">
+  <project timestamp="1573222952212" name="All files">
+    <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1" elements="5" coveredelements="5" complexity="0" loc="2" ncloc="2" packages="1" files="1" classes="1">
+      <file name="reverse-recursive.js" path="/home/ruan/Workspace/react-ninja/modulo02/examples/jest-in-practice/src/reverse/reverse-recursive.js">
+        <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="7" count="5" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
+        <line num="4" count="8" type="cond" truecount="2" falsecount="0"/>
       </file>
     </metrics>
   </project>
